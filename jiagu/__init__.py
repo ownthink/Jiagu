@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*-coding:utf-8-*-
-from chaos import analyze
+from jiagu import analyze
 
 any = analyze.Analyze()
 

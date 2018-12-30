@@ -2,13 +2,9 @@
 import os
 import sys
 import re
-import chaos
+import jiagu
 
-# from argparse import ArgumentParser
-# parser = ArgumentParser(usage="%s -m jieba [options] filename" % sys.executable, description="Jieba command line interface.", epilog="If no filename specified, use STDIN instead.")
-# parser.add_argument("filename", nargs='?', help="input file")
-# args = parser.parse_args()
-
+'''
 slot_pat = re.compile('#.*?#')
 
 
@@ -33,3 +29,4 @@ fin.close()
 fout.close()
 
 
+'''

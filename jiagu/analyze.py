@@ -9,7 +9,7 @@
 import os
 import sys
 import json
-from chaos import bilstm_crf
+from jiagu import bilstm_crf
 
 def add_curr_dir(name):
 	return os.path.join(os.path.dirname(__file__), name)
@@ -23,10 +23,10 @@ class Analyze():
 		self.init_all = False
 		
 	def initialize(self):
-		print('chaos initialize...')
-		self.seg_model = bilstm_crf.Predict(add_curr_dir('data/seg.model'))
-		self.pos_model = bilstm_crf.Predict(add_curr_dir('data/pos.model'))
-		self.ner_model = bilstm_crf.Predict(add_curr_dir('data/ner.model'))
+		print('Jiagu initialize...')
+		self.seg_model = bilstm_crf.Predict(add_curr_dir('model/seg.model'))
+		self.pos_model = bilstm_crf.Predict(add_curr_dir('model/pos.model'))
+		self.ner_model = bilstm_crf.Predict(add_curr_dir('model/ner.model'))
 		self.init_all = True
 	
 	def input_list(self, sentence):

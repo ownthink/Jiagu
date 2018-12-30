@@ -1,12 +1,12 @@
-# Pixiu自然语言处理工具（Pixiu貔貅）
+# Jiagu自然语言处理工具
 
 pip安装
 ```shell
-pip install pixiu
+pip install jiagu
 ```
 
 
-这里先创建一个项目，Pixiu项目施工中（很快将会更新，上传新模型）。
+这里先创建一个项目，Jiagu项目施工中（很快将会更新，上传新模型）。
 
 
 提供的功能有：

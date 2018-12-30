@@ -76,20 +76,3 @@ class Predict(object):
 		labels = [[self.id_to_tag.get(l) for l in p] for p in path]
 		return labels
 		
-if __name__=='__main__':
-
-	
-	model = Predict('result/bilstm.model')
-	
-	
-	text = 'hello world 你知道国务院吗，真的是傻逼啊'
-	
-	text_list = [text]
-	labels = model.predict(text_list)[0]
-
-	for word, lab in zip(list(text), labels):
-		print(word+'\t'+lab)
-
-		
-		
-		

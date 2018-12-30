@@ -2,14 +2,14 @@
 # -*- coding:utf-8 -*-
 from distutils.core import setup
 
-setup(name = 'pixiu',
-    version = '0.1',
-    description = 'Pixiu Natural Language Processing ',
+setup(name = 'jiagu',
+    version = '0.01',
+    description = 'Jiagu Natural Language Processing',
     author = 'Yener(Zheng Wenyu)',
     author_email = 'yener@ownthink.com',
-    url = 'https://github.com/ownthink/pixiu',
-    install_requires=['tensorflow>=1.3.0', 'numpy>=1.12.1'],
-    packages = ['pixiu'],
-    package_dir = {"pixiu": "pixiu"},
-	package_data={'pixiu':['*.*','data/*']}
+    url = 'https://github.com/ownthink/Jiagu',
+    install_requires=['tensorflow>=1.3.0', 'numpy>=1.12.1', 'pickle'],
+    packages = ['jiagu'],
+    package_dir = {"jiagu": "jiagu"},
+	package_data={'jiagu':['*.*','model/*']}
     )
