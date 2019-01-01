@@ -4,11 +4,21 @@ from jiagu import analyze
 
 any = analyze.Analyze()
 
-initialize = any.initialize
+init = any.init
+init()
 
-seg = any.seg
+# 分词
+seg = any.cws
+cws = any.cws
+cut = any.cws
+
+# 词性标注
 pos = any.pos
+
+# 命名实体识别
 ner = any.ner
-seg_pos = any.seg_pos
-seg_pos_ner = any.seg_pos_ner
+
+# 其他组合
+seg_pos = any.cws_pos
+seg_pos_ner = any.cws_pos_ner
 
