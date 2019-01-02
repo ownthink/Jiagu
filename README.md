@@ -22,7 +22,7 @@ pip install jiagu
 ```
 源码安装
 ```shell
-git clone https://github.com/ownthink/Jiagu
+git clone https://github.com/ownthink/Jiagu.git
 cd Jiagu
 python3 setup.py install
 ```
