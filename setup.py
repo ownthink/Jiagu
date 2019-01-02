@@ -4,7 +4,7 @@
 from setuptools import setup
 
 setup(name = 'jiagu',
-    version = '0.1',
+    version = '0.1.1',
     description = 'Jiagu Natural Language Processing',
     author = 'Yener(Zheng Wenyu)',
     author_email = 'yener@ownthink.com',

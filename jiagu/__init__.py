@@ -5,7 +5,6 @@ from jiagu import analyze
 any = analyze.Analyze()
 
 init = any.init
-init()
 
 # 分词
 seg = any.cws
