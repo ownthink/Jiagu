@@ -43,7 +43,7 @@ lines = fp.readlines(batch_zize)
 while lines:
     lines = [ln.strip("\r\n") for ln in lines]
     if args.pos:
-        result_list  = fool.pos_cut(lines)
+        result_list = fool.pos_cut(lines)
         for res in result_list:
             out_str = [plim.join(p) for p in res]
             print(delim.join(out_str))
