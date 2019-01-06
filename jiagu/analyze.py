@@ -9,7 +9,9 @@
 import os
 import sys
 import json
+from collections import defaultdict
 from jiagu import bilstm_crf
+from jiagu import textrank
 
 def add_curr_dir(name):
 	return os.path.join(os.path.dirname(__file__), name)
@@ -110,22 +112,11 @@ class Analyze():
 			return labels
 		
 	def cws_pos(self, sentence):
-		'''
-		 * mention2entity - 提及->实体
-		 * @mention:    [in]提及
-		 * 根据提及获取歧义关系
-		'''
 		text_list = sentence
 		all_labels = self.pos_model.predict(text_list)
 		return all_labels
 	
 	def cws_pos_ner(self, sentences):
-		'''
-		 * seg_pos_ner - 分词、词性标注、命名实体识别
-		 * @sentences:    [in]文本列表
-		 * 返回词语一一对应的三个列表
-		'''
-	
 		seg_list = self.seg(sentences)
 		pos_list = self.pos(seg_list)
 		ner_list = self.ner(sentences)
@@ -149,4 +140,30 @@ class Analyze():
 			# results.append([words, pos, listword])
 
 		return results
+	
+	def keywords(self, words, topkey=5):
+		g = textrank.TextRank()
+
+		cm = defaultdict(int)
+		span = 5
+		for i, wp in enumerate(words):
+			for j in range(i + 1, i + span):
+				if j >= len(words):
+					break
+				cm[(wp, words[j])] += 1
+				
+		for terms, w in cm.items():
+			g.addEdge(terms[0], terms[1], w)
+		
+		nodes_rank = g.rank()
+
+		withWeight = False
+		if withWeight:
+			tags = sorted(nodes_rank.items(), key=operator.itemgetter(1), reverse=True)
+		else:
+			tags = sorted(nodes_rank, key=nodes_rank.__getitem__, reverse=True)
+
+		return tags[:topkey]
+	
+	
 	
