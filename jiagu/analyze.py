@@ -142,6 +142,9 @@ class Analyze():
 		return results
 	
 	def keywords(self, words, topkey=5):
+		'''
+		关键字抽取
+		'''
 		g = textrank.TextRank()
 
 		cm = defaultdict(int)
@@ -165,5 +168,9 @@ class Analyze():
 
 		return tags[:topkey]
 	
-	
+	def abstract(self, text):
+		pass
+		
+		
+		
 	
