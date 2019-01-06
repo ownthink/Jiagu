@@ -1,38 +1,7 @@
-# Jiagu自然语言处理工具
->>> Jiagu以BiLSTM等模型为基础，使用大规模语料训练而成。将提供中文分词、词性标注、命名实体识别、关键词抽取、文本摘要、新词发现等常用自然语言处理功能。参考了各大工具优缺点制作，将Jiagu回馈给大家。
-
-这里先创建一个项目，Jiagu项目施工中（很快将会更新，上传新模型）。
-
-
-提供的功能有：
-* 中文分词
-* 词性标注
-* 命名实体识别
-* 关键词提取
-* 文本摘要
-* 新词发现
-* 等等。。。。
-
-
-
-
-pip安装
-```shell
-pip install jiagu
-```
-源码安装
-```shell
-git clone https://github.com/ownthink/Jiagu
-cd Jiagu
-python3 setup.py install
-```
-
-### 使用方式
-分词、词性标注、命名实体识别
-```python3
 import jiagu
 
 #jiagu.init() # 可手动初始化，也可以动态初始化
+
 
 text = '厦门明天会不会下雨'
 
@@ -44,12 +13,9 @@ print(pos)
 
 ner = jiagu.ner(text) # 命名实体识别
 print(ner)
-```
 
 
 
-关键词抽取
-```python3
 text = '携手推动民族复兴，实现和平统一目标；探索“两制”台湾方案，丰富和平统一实践；坚持一个中国原则，维护和平统一前景；深化两岸融合发展，夯实和平统一基础；实现同胞心灵契合，增进和平统一认同。在《告台湾同胞书》发表40周年纪念会上，习近平总书记提出的这五个方面重大政策主张，系统阐释了实现国家统一的目标内涵、基本方针、路径模式，深刻指明了今后一个时期对台工作的基本思路、重点任务和前进方向，既有坚定的原则性又有极强的针对性和极大的包容性，展现了非凡的政治勇气和政治智慧。'
 words = jiagu.seg(text)
 
@@ -59,15 +25,6 @@ words = [w for w in words if w not in stop_word] # 去除停用词，符号等
 keywords = jiagu.keywords(words) # 关键词抽取
 
 print(keywords)
-```
 
-
-
-
-
-### 作者：
-[Yener](https://github.com/ownthink)
-[zengbin93](https://github.com/zengbin93)
-[dirtdust](https://github.com/dirtdust)
 
 
