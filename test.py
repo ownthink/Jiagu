@@ -1,7 +1,6 @@
-import time
 import jiagu
 
-jiagu.init()
+#jiagu.init()
 
 
 text = '厦门明天会不会下雨'

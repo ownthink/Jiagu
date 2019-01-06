@@ -77,6 +77,9 @@ class Analyze():
 		return sent_words
 		
 	def cws(self, sentence, input='text'):#传入的是文本
+		if self.init_flag not in [4, 5, 6, 7]:
+			self.init_cws()
+			
 		if input == 'batch':
 			words_list = self.cws_list(sentence)
 			return words_list
@@ -85,6 +88,9 @@ class Analyze():
 			return words
 		
 	def pos(self, sentence, input='text'):#传入的是词语
+		if self.init_flag not in [2, 3, 6, 7]:
+			self.init_pos()
+			
 		if input == 'batch':
 			all_labels = self.pos_model.predict(sentence)
 			return all_labels
@@ -93,6 +99,9 @@ class Analyze():
 			return labels
 			
 	def ner(self, sentence, input='text'):#传入的是文本
+		if self.init_flag not in [1, 3, 5, 7]:
+			self.init_ner()
+			
 		if input == 'batch':
 			all_labels = self.ner_model.predict(sentence)
 			return all_labels
