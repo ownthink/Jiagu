@@ -62,6 +62,8 @@ print(keywords)
 ```
 
 
+### 附录
+1. 词性标注说明
 ```text
 n　　　普通名词
 nt　 　时间名词
@@ -99,8 +101,6 @@ w　 　标点符号
 ws　　非汉字字符串
 wu　　其他未知的符号
 ```
-
-
 
 ### 作者：
 [Yener](https://github.com/ownthink)
