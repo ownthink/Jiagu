@@ -25,7 +25,7 @@ python3 setup.py install
 ```
 
 ### 使用方式
-分词、词性标注、命名实体识别
+1. 词法分析：分词、词性标注、命名实体识别
 ```python3
 import jiagu
 
@@ -43,9 +43,7 @@ ner = jiagu.ner(text) # 命名实体识别
 print(ner)
 ```
 
-
-
-关键词抽取
+2. 关键词抽取
 ```python3
 import jiagu
 
@@ -99,6 +97,14 @@ x　 　非语素字
 w　 　标点符号
 ws　　非汉字字符串
 wu　　其他未知的符号
+```
+
+2. 命名实体说明（采用BIO标记方式）
+```text
+人名
+地名
+机构名
+时间
 ```
 
 ### 作者：
