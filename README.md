@@ -107,13 +107,15 @@ wu　　其他未知的符号
 时间
 ```
 
+### 加入我们
+QQ群：90780053，微信群联系作者微信：MrYener，作者邮箱联系方式：help@ownthink.com
+
 ### 捐赠列表（您的鼓励是作者开源的最大动力）
 
 1. *国明  [厦门理工](http://www.xmut.edu.cn/) 支付宝10元
 2. 小熊	人工智能爱好者 思知人工智能群1元
 
-
-### 作者：
+### 贡献者：
 1. [Yener](https://github.com/ownthink)
 2. [zengbin93](https://github.com/zengbin93)
 3. [dirtdust](https://github.com/dirtdust)
