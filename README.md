@@ -107,6 +107,11 @@ wu　　其他未知的符号
 时间
 ```
 
+### 捐赠列表（您的鼓励是作者开源的最大动力）
+```text
+1. *亚雄	自由职业	1元
+```
+
 ### 作者：
 1. [Yener](https://github.com/ownthink)
 2. [zengbin93](https://github.com/zengbin93)
