@@ -89,7 +89,7 @@ class MMSeg:
         __get_chunks_it(s, depth, [])
         return ret
 
-    def segment_words(self, s):
+    def cws(self, s):
         final_ret = []
         while s:
             chunks = self.__get_chunks(s)
@@ -101,5 +101,5 @@ class MMSeg:
 
 if __name__ == "__main__":
     mmseg = MMSeg()
-    print(mmseg.segment_words("武汉市长江大桥最近已经崩塌了"))
-    print(mmseg.segment_words("人要是行干一行行一行一行行行行行要是不行干一行不行一行一行不行行行不行"))
+    print(mmseg.cws("武汉市长江大桥最近已经崩塌了"))
+    print(mmseg.cws("人要是行干一行行一行一行行行行行要是不行干一行不行一行一行不行行行不行"))
