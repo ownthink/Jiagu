@@ -1,6 +1,12 @@
 # Jiagu自然语言处理工具
 >>> Jiagu以BiLSTM等模型为基础，使用大规模语料训练而成。将提供中文分词、词性标注、命名实体识别、关键词抽取、文本摘要、新词发现等常用自然语言处理功能。参考了各大工具优缺点制作，将Jiagu回馈给大家。
 
+## 目录
+* [安装方式](#安装方式)
+* [使用方式](#使用方式)
+* [评价标准](#评价标准)
+* [算法说明](#算法说明)
+
 提供的功能有：
 * 中文分词        ok
 * 词性标注        ok
@@ -9,8 +15,6 @@
 * 文本摘要
 * 新词发现
 * 等等。。。。
-
-
 
 ### 安装方式
 pip安装（版本稳定了才会更新，如果需要使用新版本可以选择源码安装）
@@ -36,6 +40,9 @@ text = '厦门明天会不会下雨'
 words = jiagu.seg(text) # 分词
 print(words)
 
+words = jiagu.mmseg(text) # 分词
+print(words)
+
 pos = jiagu.pos(words) # 词性标注
 print(pos)
 
@@ -58,8 +65,21 @@ keywords = jiagu.keywords(words) # 关键词抽取
 print(keywords)
 ```
 
+### 评价标准
+Jiagu中文分词与其他常用分词工具性能对比：https://github.com/ownthink/evaluation
 
-### 附录
+
+### 算法说明
+中文分词：
+1. bilstm+crf
+2. mmseg
+3. hmm
+4. 最大概率
+5. 最大正向+最大反向
+
+
+
+## 附录
 1. 词性标注说明
 ```text
 n　　　普通名词
@@ -110,11 +130,7 @@ wu　　其他未知的符号
 ### 加入我们
 思知人工智能群QQ群：90780053，微信群联系作者微信：MrYener，作者邮箱联系方式：help@ownthink.com
 
-### 捐赠列表（您的鼓励是作者开源的最大动力）
-
-1. *国明  [厦门理工](http://www.xmut.edu.cn/) 支付宝10元
-2. 小熊	人工智能爱好者 思知人工智能群1元
-3. 赵孟收  自由职业者 思知人工智能群0.24元
+[捐赠致谢](https://github.com/ownthink/Jiagu/wiki/donation)
 
 ### 贡献者：
 1. [Yener](https://github.com/ownthink)
