@@ -11,5 +11,5 @@ setup(name='jiagu',
       install_requires=['tensorflow>=1.3.0', 'numpy>=1.12.1', 'networkx>=2.1'],
       packages=['jiagu'],
       package_dir={"jiagu": "jiagu"},
-      package_data={'jiagu': ['*.*', 'model/*']}
+      package_data={'jiagu': ['*.*', 'model/*', 'data/*']}
       )
