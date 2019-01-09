@@ -21,7 +21,7 @@ def add_curr_dir(name):
 
 class Trie(object):
     def __init__(self):
-        self.trie_file_path = os.path.join(os.path.dirname(__file__), "datasets/Trie.pkl")
+        self.trie_file_path = os.path.join(os.path.dirname(__file__), "data/Trie.pkl")
         self.root = {}
         self.value = "value"
 
@@ -67,7 +67,7 @@ class MMSeg:
 
     def _load_word_freq(self):
         chrs_dic = defaultdict()
-        with open(add_curr_dir('datasets/chars.dic'), "r", encoding="utf-8") as f:
+        with open(add_curr_dir('data/chars.dic'), "r", encoding="utf-8") as f:
             for line in f:
                 if line:
                     key, value = line.strip().split(" ")
