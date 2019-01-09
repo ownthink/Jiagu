@@ -123,6 +123,8 @@ wu　　其他未知的符号
 ### 加入我们
 思知人工智能群QQ群：90780053，微信群联系作者微信：MrYener，作者邮箱联系方式：help@ownthink.com
 
+[捐赠致谢](https://github.com/ownthink/Jiagu/wiki/donation)
+
 ### 贡献者：
 1. [Yener](https://github.com/ownthink)
 2. [zengbin93](https://github.com/zengbin93)
