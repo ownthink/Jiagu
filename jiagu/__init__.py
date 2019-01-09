@@ -11,8 +11,8 @@ seg = any.cws
 cws = any.cws
 cut = any.cws
 
-# MMSEG 分词
-mmseg = MMSeg().cws
+# # MMSEG 分词
+# mmseg = MMSeg().cws
 
 # 词性标注
 pos = any.pos
