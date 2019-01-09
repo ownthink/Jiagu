@@ -10,16 +10,11 @@
 * 新词发现
 * 等等。。。。
 
-### 评价标准
-Jiagu中文分词与其他常用分词工具性能对比：https://github.com/ownthink/evaluation
-
-### 算法说明
-中文分词：
-1. bilstm+crf
-2. mmseg
-3. hmm
-4. 最大概率
-5. 最大正向+最大反向
+## 目录
+* [安装方式](### 安装方式)
+* [使用方式](### 使用方式)
+* [评价标准](### 评价标准)
+* [算法说明](### 算法说明)
 
 
 ### 安装方式
@@ -71,8 +66,21 @@ keywords = jiagu.keywords(words) # 关键词抽取
 print(keywords)
 ```
 
+### 评价标准
+Jiagu中文分词与其他常用分词工具性能对比：https://github.com/ownthink/evaluation
 
-### 附录
+
+### 算法说明
+中文分词：
+1. bilstm+crf
+2. mmseg
+3. hmm
+4. 最大概率
+5. 最大正向+最大反向
+
+
+
+## 附录
 1. 词性标注说明
 ```text
 n　　　普通名词
