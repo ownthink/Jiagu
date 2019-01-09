@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*-coding:utf-8-*-
 from jiagu import analyze
-from jiagu.mmseg import MMSeg
 any = analyze.Analyze()
 
 init = any.init
