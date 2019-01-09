@@ -79,7 +79,7 @@ class Analyze(object):
             sent_words.append(self.__lab2word(text, seg_labels))
         return sent_words
 
-    def cws(self, sentence, input='text'):  # 传入的是文本
+    def cws(self, sentence, input='text', model='bilstm'):  # 传入的是文本
         if self.init_flag not in [4, 5, 6, 7]:
             self.init_cws()
 
