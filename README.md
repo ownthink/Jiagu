@@ -40,9 +40,6 @@ text = '厦门明天会不会下雨'
 words = jiagu.seg(text) # 分词
 print(words)
 
-words = jiagu.mmseg(text) # 分词
-print(words)
-
 pos = jiagu.pos(words) # 词性标注
 print(pos)
 
