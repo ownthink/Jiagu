@@ -4,8 +4,7 @@ import numpy as np
 import networkx as nx
 
 from jiagu.textrank_zh.utils import AttrDict
-
-# from jiagu import seg, pos
+import jiagu
 
 sentence_sep = ['?', '!', ';', '？', '！', '。', '；', '……', '…']
 

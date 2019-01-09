@@ -16,7 +16,7 @@ from collections import defaultdict
 
 
 def add_curr_dir(name):
-	return os.path.join(os.path.dirname(__file__), name)
+    return os.path.join(os.path.dirname(__file__), name)
 
 
 class Trie(object):
@@ -76,6 +76,7 @@ class MMSeg:
 
     def __get_chunks(self, s, depth=3):
         ret = []
+
         # 递归调用
         def __get_chunks_it(s, num, segs):
             if (num == 0 or not s) and segs:
@@ -86,6 +87,7 @@ class MMSeg:
                     __get_chunks_it(s[1:], num - 1, segs + [s[0]])
                 for w in m:
                     __get_chunks_it(s[len(w):], num - 1, segs + [w])
+
         __get_chunks_it(s, depth, [])
         return ret
 
