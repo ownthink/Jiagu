@@ -3,11 +3,11 @@
 
 提供的功能有：
 * 中文分词        ok
-    bilstm+crf
-    mmseg
-    hmm
-    最大概率
-    最大正向、最大反向
+bilstm+crf
+mmseg
+hmm
+最大概率
+最大正向、最大反向
 * 词性标注        ok
 * 命名实体识别     ok
 * 关键词提取       ok
