@@ -123,12 +123,6 @@ wu　　其他未知的符号
 ### 加入我们
 思知人工智能群QQ群：90780053，微信群联系作者微信：MrYener，作者邮箱联系方式：help@ownthink.com
 
-### 捐赠列表（您的鼓励是作者开源的最大动力）
-
-1. *国明  [厦门理工](http://www.xmut.edu.cn/) 支付宝10元
-2. 小熊	人工智能爱好者 思知人工智能群1元
-3. 赵孟收  自由职业者 思知人工智能群0.24元
-
 ### 贡献者：
 1. [Yener](https://github.com/ownthink)
 2. [zengbin93](https://github.com/zengbin93)
