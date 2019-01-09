@@ -10,6 +10,9 @@
 * 新词发现
 * 等等。。。。
 
+### 评价标准
+Jiagu中文分词与其他常用分词工具性能对比：https://github.com/ownthink/evaluation
+
 ### 算法说明
 中文分词：
 1. bilstm+crf
