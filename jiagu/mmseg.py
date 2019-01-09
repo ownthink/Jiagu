@@ -30,7 +30,7 @@ class Trie(object):
         node = self.root
         for c in word:
             if c not in node:
-                continue
+                break
             node = node[c]
             if self.value in node:
                 ret.append(node[self.value])
