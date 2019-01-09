@@ -10,6 +10,7 @@ import os
 from collections import defaultdict
 from jiagu import bilstm_crf
 from jiagu import textrank
+from jiagu import mmseg
 
 
 def add_curr_dir(name):
@@ -21,6 +22,9 @@ class Analyze(object):
 		self.seg_model = None
 		self.pos_model = None
 		self.ner_model = None
+		
+		self.seg_mmseg = None
+		
 		self.init_flag = set()
 
 	def init(self):
@@ -43,6 +47,11 @@ class Analyze(object):
 			self.ner_model = bilstm_crf.Predict(add_curr_dir('model/ner.model'))
 			self.init_flag.add('ner')
 
+	def init_mmseg(self):
+		if self.seg_mmseg is None:
+			self.seg_mmseg = mmseg.MMSeg()
+			self.init_flag.add('mmseg')
+		
 	@staticmethod
 	def __lab2word(sentence, labels):
 		words = []
@@ -97,9 +106,13 @@ class Analyze(object):
 				words = self.cws_text(sentence)
 				return words
 		elif model == 'mmseg':
-			pass
+			if 'mmseg' not in self.init_flag:
+				self.init_mmseg()
+			words = self.seg_mmseg.cws(sentence)
+			return words
 		else:
 			pass
+		return []
 
 	def pos(self, sentence, input='text'):  # 传入的是词语
 		if 'pos' not in self.init_flag:

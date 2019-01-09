@@ -5,7 +5,7 @@ import jiagu
 
 text = '厦门明天会不会下雨'
 
-words = jiagu.seg(text) # 分词
+words = jiagu.seg(text) # 分词，可以用model选择分词模式，不填则默认，mmseg则使用mmseg算法。
 print(words)
 
 pos = jiagu.pos(words) # 词性标注
