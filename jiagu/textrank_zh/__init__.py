@@ -7,9 +7,5 @@
  * Version     : 0.01
  * Description : 基于 TextRank 的关键词提取、文本摘要
 """
-
-import jiagu.textrank_zh.utils
-import jiagu.textrank_zh.abstract
-
-
+from .textrank import TextRank
 

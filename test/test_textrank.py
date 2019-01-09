@@ -2,10 +2,6 @@
 """
 测试 Textrank 模块
 """
-
-import sys
-sys.path.insert(0, '')
-
 import unittest
 import jiagu.textrank_zh as t
 
