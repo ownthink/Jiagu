@@ -44,12 +44,13 @@ class Trie(object):
 
 class Chunk:
     def __init__(self, words, chrs):
+        self.sentence_sep = ['?', '!', ';', '？', '！', '。', '；', '……', '…', "，", ",", "."]
         self.words = words
         self.lens = map(lambda x: len(x), words)
         self.length = sum(self.lens)
         self.mean = float(self.length) / len(words)
         self.var = sum(map(lambda x: (x - self.mean) ** 2, self.lens)) / len(self.words)
-        self.degree = sum([log(float(chrs[x])) for x in words if len(x) == 1])
+        self.degree = sum([log(float(chrs[x])) for x in words if len(x) == 1 and x not in self.sentence_sep])
 
     def __lt__(self, other):
         return (self.length, self.mean, -self.var, self.degree) < \
@@ -104,4 +105,4 @@ class MMSeg:
 if __name__ == "__main__":
     mmseg = MMSeg()
     print(mmseg.cws("武汉市长江大桥最近已经崩塌了"))
-    print(mmseg.cws("人要是行干一行行一行一行行行行行要是不行干一行不行一行一行不行行行不行"))
+    print(mmseg.cws("人要是行,干一行行一行一行行行行行要是不行干一行不行一行一行不行行行不行"))
