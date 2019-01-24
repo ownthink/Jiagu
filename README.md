@@ -70,7 +70,8 @@ print(keywords)
 
 ### 评价标准
 Jiagu中文分词与其他常用分词工具性能对比：https://github.com/ownthink/evaluation
-
+1. msr测试结果
+![msr](https://github.com/ownthink/evaluation/blob/master/images/2.png)
 
 ### 算法说明
 中文分词：
