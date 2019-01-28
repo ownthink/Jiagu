@@ -2,7 +2,7 @@
  * Copyright (C) 2017 OwnThink Technologies Inc.
  *
  * Name        : analyze.py - 解析
- * Author      : Yener <yener@ownthink.com>
+ * Author      : Yener <help@ownthink.com>
  * Version     : 0.01
  * Description : 解析模块
 """
@@ -11,7 +11,7 @@ from collections import defaultdict
 from jiagu import bilstm_crf
 from jiagu import textrank
 from jiagu import mmseg
-
+from jiagu import findword
 
 def add_curr_dir(name):
 	return os.path.join(os.path.dirname(__file__), name)
@@ -25,8 +25,6 @@ class Analyze(object):
 		
 		self.seg_mmseg = None
 		
-		self.init_flag = set()
-
 	def init(self):
 		self.init_cws()  # 4
 		self.init_pos()  # 2
@@ -35,22 +33,18 @@ class Analyze(object):
 	def init_cws(self):
 		if self.seg_model is None:
 			self.seg_model = bilstm_crf.Predict(add_curr_dir('model/cws.model'))
-			self.init_flag.add('cws')
 
 	def init_pos(self):
 		if self.pos_model is None:
 			self.pos_model = bilstm_crf.Predict(add_curr_dir('model/pos.model'))
-			self.init_flag.add('pos')
 
 	def init_ner(self):
 		if self.ner_model is None:
 			self.ner_model = bilstm_crf.Predict(add_curr_dir('model/ner.model'))
-			self.init_flag.add('ner')
 
 	def init_mmseg(self):
 		if self.seg_mmseg is None:
 			self.seg_mmseg = mmseg.MMSeg()
-			self.init_flag.add('mmseg')
 		
 	@staticmethod
 	def __lab2word(sentence, labels):
@@ -96,8 +90,7 @@ class Analyze(object):
 		 * @model:		[in]分词所使用的模式，default为默认模式，mmseg为mmseg分词方式
 		'''
 		if model == 'default':
-			if 'cws' not in self.init_flag:
-				self.init_cws()
+			self.init_cws()
 
 			if input == 'batch':
 				words_list = self.cws_list(sentence)
@@ -106,8 +99,8 @@ class Analyze(object):
 				words = self.cws_text(sentence)
 				return words
 		elif model == 'mmseg':
-			if 'mmseg' not in self.init_flag:
-				self.init_mmseg()
+			self.init_mmseg()
+			
 			words = self.seg_mmseg.cws(sentence)
 			return words
 		else:
@@ -115,8 +108,7 @@ class Analyze(object):
 		return []
 
 	def pos(self, sentence, input='text'):  # 传入的是词语
-		if 'pos' not in self.init_flag:
-			self.init_pos()
+		self.init_pos()
 
 		if input == 'batch':
 			all_labels = self.pos_model.predict(sentence)
@@ -126,8 +118,7 @@ class Analyze(object):
 			return labels
 
 	def ner(self, sentence, input='text'):  # 传入的是文本
-		if 'ner' not in self.init_flag:
-			self.init_ner()
+		self.init_ner()
 
 		if input == 'batch':
 			all_labels = self.ner_model.predict(sentence)
@@ -142,6 +133,9 @@ class Analyze(object):
 		return all_labels
 
 	def cws_pos_ner(self, sentences):
+		'''
+		todo
+		'''
 		seg_list = self.seg(sentences)
 		pos_list = self.pos(seg_list)
 		ner_list = self.ner(sentences)
@@ -152,17 +146,6 @@ class Analyze(object):
 			pos = pos_list[i]
 			ner = ner_list[i]
 			results.append([words, pos, ner])
-
-		# listword = []
-		# for word, net in zip(sentences, ner):
-		# if net[0] == 'B':
-		# listword.append(word)
-		# elif net[0] == 'I' or net[0] == 'E':
-		# listword[len(listword)-1]+=word
-		# else:
-		# listword.append(word)
-
-		# results.append([words, pos, listword])
 
 		return results
 
@@ -196,3 +179,9 @@ class Analyze(object):
 
 	def abstract(self, text):
 		pass
+
+	def findword(self, input, output):
+		findword.train_corpus_words(input, output)
+		
+		
+		

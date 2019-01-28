@@ -20,5 +20,12 @@ ner = any.ner
 seg_pos = any.cws_pos
 seg_pos_ner = any.cws_pos_ner
 
-
+# 关键字抽取
 keywords = any.keywords
+
+# 中文摘要
+abstract = any.abstract
+
+# 新词发现
+findword = any.findword
+

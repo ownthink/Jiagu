@@ -23,8 +23,10 @@ stop_words = ['的', '，', '；', '、']
 words = [w for w in words if w not in stop_words] # 去除停用词，符号等
 
 keywords = jiagu.keywords(words) # 关键词抽取
-
 print(keywords)
+
+
+# jiagu.findword('input.txt', 'output.txt') # 根据大规模语料，利用信息熵做新词发现。
 
 
 
