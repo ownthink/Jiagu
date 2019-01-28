@@ -5,7 +5,7 @@
 * [安装方式](#安装方式)
 * [使用方式](#使用方式)
 * [评价标准](#评价标准)
-* [算法说明](#算法说明)
+* [附录说明](#附录)
 
 ---
 
@@ -81,15 +81,6 @@ Jiagu中文分词与其他常用分词工具性能对比：https://github.com/ow
 1. msr测试结果
 
 ![msr](https://github.com/ownthink/evaluation/blob/master/images/2.png)
-
-### 算法说明
-中文分词：
-1. bilstm+crf
-2. mmseg
-3. hmm
-4. 最大概率
-5. 最大正向+最大反向
-
 
 
 ## 附录
