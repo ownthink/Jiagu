@@ -129,7 +129,7 @@ wu　　其他未知的符号
 ```text
 B-PER、I-PER   人名
 B-LOC、I-LOC   地名
-B-ORG、I-ORG   组织机构名
+B-ORG、I-ORG   机构名
 ```
 
 ### 加入我们
