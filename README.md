@@ -68,6 +68,13 @@ keywords = jiagu.keywords(words) # 关键词抽取
 print(keywords)
 ```
 
+3. 新词发现
+```python3
+import jiagu
+
+jiagu.findword('input.txt', 'output.txt') # 根据大规模语料，利用信息熵做新词发现。
+```
+
 ### 评价标准
 Jiagu中文分词与其他常用分词工具性能对比：https://github.com/ownthink/evaluation
 
