@@ -53,6 +53,17 @@ ner = jiagu.ner(text) # 命名实体识别
 print(ner)
 ```
 
+自定义分词模型
+```python3
+import jiagu
+
+jiagu.load_model('test/extra_data/model/cnc.model')
+
+words = jiagu.seg('结婚的和尚未结婚的')
+
+print(words)
+```
+
 2. 关键词抽取
 ```python3
 import jiagu
