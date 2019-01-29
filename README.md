@@ -53,11 +53,11 @@ ner = jiagu.ner(text) # 命名实体识别
 print(ner)
 ```
 
-自定义分词模型（将单独提供msr、pku、cnc等模型）
+自定义分词模型（将单独提供msr、pku、cnc等分词标准）
 ```python3
 import jiagu
 
-jiagu.load_model('test/extra_data/model/cnc.model') # 使用国家语委分词模型
+jiagu.load_model('test/extra_data/model/cnc.model') # 使用国家语委分词标准
 
 words = jiagu.seg('结婚的和尚未结婚的')
 
