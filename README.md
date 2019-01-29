@@ -54,6 +54,23 @@ print(ner)
 ```
 
 2. 中文分词
+
+分词使用方式
+```python3
+import jiagu
+
+text = '汉服和服装'
+
+words = jiagu.seg(text) # 默认分词
+print(words)
+
+words = jiagu.seg([text, text, text], input='batch') # 批量分词
+print(words)
+
+words = jiagu.seg(text, model='mmseg') # 使用mmseg算法进行分词
+print(words)
+```
+
 自定义分词模型（将单独提供msr、pku、cnc等分词标准）
 ```python3
 import jiagu
