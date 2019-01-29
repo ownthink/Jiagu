@@ -55,7 +55,7 @@ print(ner)
 
 2. 中文分词
 
-分词使用方式
+分词各种模式使用方式
 ```python3
 import jiagu
 
@@ -64,7 +64,7 @@ text = '汉服和服装'
 words = jiagu.seg(text) # 默认分词
 print(words)
 
-words = jiagu.seg([text, text, text], input='batch') # 批量分词
+words = jiagu.seg([text, text, text], input='batch') # 批量分词，加快速度。
 print(words)
 
 words = jiagu.seg(text, model='mmseg') # 使用mmseg算法进行分词
