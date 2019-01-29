@@ -57,7 +57,7 @@ print(ner)
 ```python3
 import jiagu
 
-jiagu.load_model('test/extra_data/model/cnc.model')
+jiagu.load_model('test/extra_data/model/cnc.model') # 使用国家语委分词模型
 
 words = jiagu.seg('结婚的和尚未结婚的')
 
