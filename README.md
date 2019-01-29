@@ -53,7 +53,7 @@ ner = jiagu.ner(text) # 命名实体识别
 print(ner)
 ```
 
-自定义分词模型
+自定义分词模型（将单独提供msr、pku、cnc等模型）
 ```python3
 import jiagu
 
