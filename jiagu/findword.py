@@ -9,7 +9,6 @@ hanzi_re = re.compile(u"[\w]+", re.U)
 PHRASE_MAX_LENGTH = 6
 
 def cut_sentence(sentence):
-	"""把句子按照前后关系切分"""
 	result = {}
 	sentence_length = len(sentence)
 	for i in range(sentence_length):
@@ -19,13 +18,12 @@ def cut_sentence(sentence):
 	return result
 
 def gen_word_dict(path):
-	"""统计文档所有候选词，词频（包括单字）"""
 	word_dict = {}
 	with open(path,'r',encoding='utf8') as fp:
 		for line in fp:
-			hanzi_rdd = hanzi_re.findall(line)  # 提取汉字
+			hanzi_rdd = hanzi_re.findall(line)
 			for words in hanzi_rdd:
-				raw_phrase_rdd = cut_sentence(words)  # dict
+				raw_phrase_rdd = cut_sentence(words)
 				for word in raw_phrase_rdd:
 
 					if word in word_dict:
@@ -35,11 +33,6 @@ def gen_word_dict(path):
 	return word_dict   
 	
 def gen_lr_dict(word_dict,counts,thr_fq,thr_mtro):
-	"""
-	统计长度>1的词的左右字出现的频数，并进行了频数和互信息筛选。
-	# 得到词典：{'一个':[1208,2,8,1,15,...],'':[],...}其中[]第一元素为该字总的频数，其他元素为加上右或左边单个字后的频数
-	"""
-
 	l_dict = {}
 	r_dict = {}
 	k = 0
@@ -49,7 +42,7 @@ def gen_lr_dict(word_dict,counts,thr_fq,thr_mtro):
 			continue
 		wordl = word[:-1]
 		ml = word_dict[wordl]
-		if ml > thr_fq:  # 词频筛选
+		if ml > thr_fq:
 			wordl_r = wordl[1:]
 			wordl_l = wordl[0]
 			mul_info1 = ml * counts / (word_dict[wordl_r] * word_dict[wordl_l])
@@ -57,7 +50,7 @@ def gen_lr_dict(word_dict,counts,thr_fq,thr_mtro):
 			wordl_l = wordl[:-1]
 			mul_info2 = ml * counts / (word_dict[wordl_r] * word_dict[wordl_l])
 			mul_info = min(mul_info1, mul_info2)
-			if mul_info > thr_mtro:  # 互信息筛选
+			if mul_info > thr_mtro:
 				if wordl in l_dict:
 					l_dict[wordl].append(word_dict[word])
 				else:
@@ -65,7 +58,7 @@ def gen_lr_dict(word_dict,counts,thr_fq,thr_mtro):
 
 		wordr = word[1:]
 		mr = word_dict[wordr]
-		if mr > thr_fq:  # 词频筛选
+		if mr > thr_fq:
 		
 			wordr_r = wordr[1:]
 			wordr_l = wordr[0]
@@ -75,7 +68,7 @@ def gen_lr_dict(word_dict,counts,thr_fq,thr_mtro):
 			mul_info2 = mr * counts / (word_dict[wordr_r] * word_dict[wordr_l])
 			mul_info = min(mul_info1, mul_info2)
 			
-			if mul_info > thr_mtro:  # 互信息筛选        
+			if mul_info > thr_mtro:    
 				if wordr in r_dict:
 					r_dict[wordr].append(word_dict[word])
 				else:
@@ -83,7 +76,6 @@ def gen_lr_dict(word_dict,counts,thr_fq,thr_mtro):
 	return l_dict,r_dict
  
 def cal_entro(r_dict):
-	"""计算左边熵或右边熵"""
 	entro_r_dict = {}
 	for word in r_dict:
 		m_list = r_dict[word]
@@ -91,10 +83,10 @@ def cal_entro(r_dict):
 		r_list = m_list[1:]
 		fm = m_list[0]
 
-		entro_r = 0  # 右边熵
+		entro_r = 0
 		krm = fm - sum(r_list)
 		if krm > 0:
-			entro_r -= 1 / fm * log(1 / fm, 2) * krm  # 右边为空时，应该增加熵
+			entro_r -= 1 / fm * log(1 / fm, 2) * krm 
 
 		for rm in r_list:
 			entro_r -= rm / fm * log(rm / fm, 2)
@@ -102,8 +94,7 @@ def cal_entro(r_dict):
 		
 	return entro_r_dict
 	  
-def entro_lr_fusion(entro_r_dict,entro_l_dict):      
-	"""左右熵合并"""
+def entro_lr_fusion(entro_r_dict,entro_l_dict):
 	entro_in_rl_dict = {}
 	entro_in_r_dict = {}
 	entro_in_l_dict =  entro_l_dict.copy()
@@ -116,7 +107,6 @@ def entro_lr_fusion(entro_r_dict,entro_l_dict):
 	return entro_in_rl_dict,entro_in_l_dict,entro_in_r_dict
    
 def entro_filter(entro_in_rl_dict,entro_in_l_dict,entro_in_r_dict,word_dict,thr_entro):
-	"""信息熵筛选"""
 	entro_dict = {}
 	l, r, rl = 0, 0, 0
 	for word in entro_in_rl_dict:
@@ -138,7 +128,6 @@ def entro_filter(entro_in_rl_dict,entro_in_l_dict,entro_in_r_dict,word_dict,thr_
 
 	
 def train_corpus_words(path, output):
-	"""读取语料文件，根据互信息、左右信息熵训练出语料词库"""
 	thr_fq = 10  # 词频筛选阈值
 	thr_mtro = 80  # 互信息筛选阈值
 	thr_entro = 3  # 信息熵筛选阈值
