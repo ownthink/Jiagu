@@ -35,7 +35,7 @@ python3 setup.py install
 ```
 
 ### 使用方式
-1. 词法分析：分词、词性标注、命名实体识别
+1. 快速上手：分词、词性标注、命名实体识别
 ```python3
 import jiagu
 
@@ -53,6 +53,7 @@ ner = jiagu.ner(text) # 命名实体识别
 print(ner)
 ```
 
+2. 中文分词
 自定义分词模型（将单独提供msr、pku、cnc等分词标准）
 ```python3
 import jiagu
@@ -64,7 +65,7 @@ words = jiagu.seg('结婚的和尚未结婚的')
 print(words)
 ```
 
-2. 关键词抽取
+3. 关键词抽取
 ```python3
 import jiagu
 
@@ -79,7 +80,7 @@ keywords = jiagu.keywords(words) # 关键词抽取
 print(keywords)
 ```
 
-3. 新词发现
+4. 新词发现
 ```python3
 import jiagu
 
