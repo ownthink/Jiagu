@@ -106,7 +106,7 @@ print(keywords)
 ```python3
 import jiagu
 
-jiagu.findword('input.txt', 'output.txt') # 根据大规模语料，利用信息熵做新词发现。
+jiagu.findword('input.txt', 'output.txt') # 根据文本，利用信息熵做新词发现。
 ```
 
 ### 评价标准
