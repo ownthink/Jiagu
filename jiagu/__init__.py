@@ -17,7 +17,7 @@ pos = any.pos
 ner = any.ner
 
 # 依存句法分析
-
+# parser
 
 # 加载用户字典
 # load_userdict
