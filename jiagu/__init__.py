@@ -22,8 +22,8 @@ ner = any.ner
 # 加载用户字典
 # load_userdict
 
-# 加载分词模型
-# load_model
+# 自定义分词模型
+load_model = any.load_model
 
 
 # 其他组合

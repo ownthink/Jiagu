@@ -34,6 +34,9 @@ class Analyze(object):
 		if self.seg_model is None:
 			self.seg_model = bilstm_crf.Predict(add_curr_dir('model/cws.model'))
 
+	def load_model(self, model_path):
+		self.seg_model = bilstm_crf.Predict(model_path)
+	
 	def init_pos(self):
 		if self.pos_model is None:
 			self.pos_model = bilstm_crf.Predict(add_curr_dir('model/pos.model'))
