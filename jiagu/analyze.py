@@ -7,11 +7,14 @@
  * Description : 解析模块
 """
 import os
-from collections import defaultdict
-from jiagu import bilstm_crf
-from jiagu import textrank
 from jiagu import mmseg
+from jiagu import textrank
 from jiagu import findword
+from jiagu import bilstm_crf
+from collections import defaultdict
+from jiagu.textrank import Keywords
+from jiagu.textrank import Summarize
+
 
 def add_curr_dir(name):
 	return os.path.join(os.path.dirname(__file__), name)
@@ -24,6 +27,9 @@ class Analyze(object):
 		self.ner_model = None
 		
 		self.seg_mmseg = None
+		
+		self.keywords_model = None
+		self.summarize_model = None
 		
 	def init(self):
 		self.init_cws()  # 4
@@ -73,6 +79,8 @@ class Analyze(object):
 		return words
 
 	def cws_text(self, sentence):
+		if sentence == '':
+			return ['']
 		labels = self.seg_model.predict([sentence])[0]
 		return self.__lab2word(sentence, labels)
 
@@ -153,7 +161,7 @@ class Analyze(object):
 		return results
 
 	@staticmethod
-	def keywords(words, topkey=5):
+	def keywords_na(words, topkey=5):
 		"""
 		关键字抽取
 		"""
@@ -180,8 +188,16 @@ class Analyze(object):
 
 		return tags[:topkey]
 
-	def abstract(self, text):
-		pass
+		
+	def keywords(self, text, topkey=5):
+		if self.keywords_model == None:
+			self.keywords_model = Keywords(tol=0.0001,window=2)
+		return self.keywords_model.keywords(text, topkey)
+	
+	def summarize(self, text, topsen=5):
+		if self.summarize_model == None:
+			self.summarize_model = Summarize(tol=0.0001)
+		return self.summarize_model.summarize(text, topsen)
 
 	def findword(self, input, output):
 		findword.train_corpus_words(input, output)

@@ -34,7 +34,7 @@ seg_pos_ner = any.cws_pos_ner
 keywords = any.keywords
 
 # 中文摘要
-abstract = any.abstract
+summarize = any.summarize
 
 # 新词发现
 findword = any.findword
