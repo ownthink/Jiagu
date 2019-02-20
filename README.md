@@ -106,7 +106,7 @@ print(keywords)
 ```python3
 fin = open('input.txt', 'r')
 text = fin.read()
-fin.clone()
+fin.close()
 
 summarize = jiagu.summarize(text, 3) # 摘要
 print(summarize)
