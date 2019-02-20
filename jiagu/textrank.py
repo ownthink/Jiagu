@@ -65,14 +65,6 @@ class Keywords(object):
         return [index_word[i] for i in sent_index]
 
 
-		
-		
-		
-		
-		
-		
-		
-		
 class Summarize(object):
     def __init__(self, use_stopword = True, stop_words_file=None, dict_path=None,max_iter=100,tol=0.0001):
         if dict_path!=None:
@@ -143,6 +135,7 @@ class Summarize(object):
 
         similarity = utils.cosine_similarity(vec1 / len(sents_1), vec2 / len(sents_2))
         return similarity
+
 
 class TextRank:
     d = 0.85
