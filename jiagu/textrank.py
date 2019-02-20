@@ -25,7 +25,7 @@ class Keywords(object):
         d = os.path.dirname(os.path.realpath(__file__))
         return os.path.join(d, 'data/stopwords.txt')
 
-    def build_worddict(self,sents):
+    def build_worddict(self, sents):
         word_index = {}
         index_word = {}
         words_number = 0
@@ -37,7 +37,7 @@ class Keywords(object):
                     words_number += 1
         return word_index,index_word,words_number
 
-    def build_word_grah(self,sents,words_number,word_index,window=2):
+    def build_word_grah(self, sents, words_number, word_index, window=2):
         graph = [[0.0 for _ in range(words_number)] for _ in range(words_number)]
         for word_list in sents:
             for w1, w2 in utils.combine(word_list, window):
@@ -52,12 +52,12 @@ class Keywords(object):
         text = text.replace('\n', '')
         text = text.replace('\r', '')
         text = utils.as_text(text)
-        tokens=utils.cut_sentences(text)
-        sentences,sents=utils.psegcut_filter_words(tokens,self.__stop_words,self.__use_stopword)
+        tokens = utils.cut_sentences(text)
+        sentences, sents=utils.psegcut_filter_words(tokens, self.__stop_words, self.__use_stopword)
 
-        word_index, index_word, words_number=self.build_worddict(sents)
-        graph=self.build_word_grah(sents,words_number,word_index,window=self.__window)
-        scores = utils.weight_map_rank(graph,max_iter=self.__max_iter,tol=self.__tol)
+        word_index, index_word, words_number = self.build_worddict(sents)
+        graph = self.build_word_grah(sents, words_number, word_index, window=self.__window)
+        scores = utils.weight_map_rank(graph, max_iter=self.__max_iter, tol=self.__tol)
         sent_selected = nlargest(n, zip(scores, count()))
         sent_index = []
         for i in range(n):
@@ -66,8 +66,8 @@ class Keywords(object):
 
 
 class Summarize(object):
-    def __init__(self, use_stopword = True, stop_words_file=None, dict_path=None,max_iter=100,tol=0.0001):
-        if dict_path!=None:
+    def __init__(self, use_stopword=True, stop_words_file=None, dict_path=None, max_iter=100, tol=0.0001):
+        if dict_path != None:
             raise RuntimeError("True")
         self.__use_stopword = use_stopword
         self.__dict_path = dict_path
@@ -87,7 +87,7 @@ class Summarize(object):
         d = os.path.dirname(os.path.realpath(__file__))
         return os.path.join(d, 'data/stopwords.txt')
 
-    def filter_dictword(self,sents):
+    def filter_dictword(self, sents):
         _sents = []
         dele=set()
         for sentence in sents:
@@ -98,22 +98,22 @@ class Summarize(object):
                 _sents.append([word for word in sentence if word not in dele])
         return _sents
 
-    def summarize(self,text,n):
+    def summarize(self, text, n):
         text = text.replace('\n', '')
         text = text.replace('\r', '')
         text = utils.as_text(text)
-        tokens=utils.cut_sentences(text)
-        sentences, sents=utils.cut_filter_words(tokens,self.__stop_words,self.__use_stopword)
+        tokens = utils.cut_sentences(text)
+        sentences, sents = utils.cut_filter_words(tokens, self.__stop_words, self.__use_stopword)
 
         graph = self.create_graph_sentence(sents)
-        scores = utils.weight_map_rank(graph,self.__max_iter,self.__tol)
+        scores = utils.weight_map_rank(graph, self.__max_iter, self.__tol)
         sent_selected = nlargest(n, zip(scores, count()))
         sent_index = []
         for i in range(n):
             sent_index.append(sent_selected[i][1])
         return [sentences[i] for i in sent_index]
 
-    def create_graph_sentence(self,word_sent):
+    def create_graph_sentence(self, word_sent):
         num = len(word_sent)
         board = [[0.0 for _ in range(num)] for _ in range(num)]
 
@@ -122,7 +122,7 @@ class Summarize(object):
                 board[i][j]=utils.two_sentences_similarity(word_sent[i], word_sent[j])
         return board
 
-    def compute_similarity_by_avg(self,sents_1, sents_2):
+    def compute_similarity_by_avg(self, sents_1, sents_2):
         if len(sents_1) == 0 or len(sents_2) == 0:
             return 0.0
         vec1 = self.__word2vec[sents_1[0]]
