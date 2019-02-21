@@ -1,10 +1,12 @@
+#!/usr/bin/env python3
+# -*-coding:utf-8-*-
 """
- * Copyright (C) 2017 OwnThink Technologies Inc.
+ * Copyright (C) 2018 OwnThink.
  *
- * Name        : analyze.py - 解析
- * Author      : Yener <help@ownthink.com>
+ * Name        : analyze.py - 解析模块
+ * Author      : Yener <yener@ownthink.com>
  * Version     : 0.01
- * Description : 解析模块
+ * Description : 
 """
 import os
 from jiagu import mmseg
@@ -32,9 +34,9 @@ class Analyze(object):
 		self.summarize_model = None
 		
 	def init(self):
-		self.init_cws()  # 4
-		self.init_pos()  # 2
-		self.init_ner()  # 1
+		self.init_cws()
+		self.init_pos()
+		self.init_ner()
 
 	def init_cws(self):
 		if self.seg_model is None:
@@ -57,10 +59,10 @@ class Analyze(object):
 		
 	@staticmethod
 	def __lab2word(sentence, labels):
-		words = []
-		N = len(sentence)
+		sen_len = len(sentence)
 		tmp_word = ""
-		for i in range(N):
+		words = []
+		for i in range(sen_len):
 			label = labels[i]
 			w = sentence[i]
 			if label == "B":
@@ -93,10 +95,10 @@ class Analyze(object):
 			sent_words.append(self.__lab2word(text, seg_labels))
 		return sent_words
 
-	def cws(self, sentence, input='text', model='default'):  # 传入的是文本
+	def cws(self, sentence, input='text', model='default'):
 		'''
 		 * cws - 中文分词
-		 * @sentence:	[in]文本或者文本列表，根据input的模式来订
+		 * @sentence:	[in]文本或者文本列表，根据input的模式来定
 		 * @input:		[in]句子输入的格式，text则为默认的文本，batch则为批量的文本列表
 		 * @model:		[in]分词所使用的模式，default为默认模式，mmseg为mmseg分词方式
 		'''
@@ -118,7 +120,7 @@ class Analyze(object):
 			pass
 		return []
 
-	def pos(self, sentence, input='text'):  # 传入的是词语
+	def pos(self, sentence, input='words'):  # 传入的是词语
 		self.init_pos()
 
 		if input == 'batch':
@@ -137,57 +139,6 @@ class Analyze(object):
 		else:
 			labels = self.ner_model.predict([sentence])[0]
 			return labels
-
-	def cws_pos(self, sentence):
-		text_list = sentence
-		all_labels = self.pos_model.predict(text_list)
-		return all_labels
-
-	def cws_pos_ner(self, sentences):
-		'''
-		todo
-		'''
-		seg_list = self.seg(sentences)
-		pos_list = self.pos(seg_list)
-		ner_list = self.ner(sentences)
-
-		results = []
-		for i in range(len(sentences)):
-			words = seg_list[i]
-			pos = pos_list[i]
-			ner = ner_list[i]
-			results.append([words, pos, ner])
-
-		return results
-
-	@staticmethod
-	def keywords_na(words, topkey=5):
-		"""
-		关键字抽取
-		"""
-		g = textrank.TextRank()
-
-		cm = defaultdict(int)
-		span = 5
-		for i, wp in enumerate(words):
-			for j in range(i + 1, i + span):
-				if j >= len(words):
-					break
-				cm[(wp, words[j])] += 1
-
-		for terms, w in cm.items():
-			g.addEdge(terms[0], terms[1], w)
-
-		nodes_rank = g.rank()
-
-		withWeight = False
-		if withWeight:
-			tags = sorted(nodes_rank.items(), key=operator.itemgetter(1), reverse=True)
-		else:
-			tags = sorted(nodes_rank, key=nodes_rank.__getitem__, reverse=True)
-
-		return tags[:topkey]
-
 		
 	def keywords(self, text, topkey=5):
 		if self.keywords_model == None:

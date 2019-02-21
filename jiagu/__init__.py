@@ -1,6 +1,15 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*-coding:utf-8-*-
+"""
+ * Copyright (C) 2018 OwnThink.
+ *
+ * Name        : __init__.py
+ * Author      : Yener <yener@ownthink.com>
+ * Version     : 0.01
+ * Description : 
+"""
 from jiagu import analyze
+
 any = analyze.Analyze()
 
 init = any.init
@@ -24,11 +33,6 @@ ner = any.ner
 
 # 自定义分词模型
 load_model = any.load_model
-
-
-# 其他组合
-seg_pos = any.cws_pos
-seg_pos_ner = any.cws_pos_ner
 
 # 关键字抽取
 keywords = any.keywords
