@@ -5,7 +5,7 @@ import math
 import numpy as np
 
 sentence_delimiters=frozenset(u'。！？……')
-allow_speech_tags = ['an', 'i', 'j', 'l', 'n', 'nr', 'nrfg', 'ns', 'nt', 'nz', 't', 'v', 'vd', 'vn', 'eng']
+allow_speech_tags = 'an i j l n nr nrfg ns nt nz t v vd vn eng'.split()
 
 PY2 = sys.version_info[0] == 2
 if not PY2:
