@@ -7,7 +7,7 @@
 @software  : PyCharm 
 @file      : mmseg.py
 @time      : 2019/1/5 9:55
-@intro     : mmseg分词方法
+@intro     : mmseg分词方法，目前算法比较耗时，仍在优化中
 """
 import os
 import pickle
