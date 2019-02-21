@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 # encoding: utf-8
 """
-@version   : 0.1
-@author    : Leo
-@contact   : 1162441289@qq.com
-@software  : PyCharm 
-@file      : mmseg.py
-@time      : 2019/1/5 9:55
-@intro     : mmseg分词方法
+ * Copyright (C) 2018 OwnThink Technologies Inc.
+ *
+ * Name        : mmseg.py
+ * Author      : Leo <1162441289@qq.com>
+ * Version     : 0.01
+ * Description : mmseg分词方法，目前算法比较耗时，仍在优化中
 """
 import os
 import pickle
@@ -21,9 +20,9 @@ def add_curr_dir(name):
 
 class Trie(object):
     def __init__(self):
-        self.trie_file_path = os.path.join(os.path.dirname(__file__), "data/Trie.pkl")
         self.root = {}
         self.value = "value"
+        self.trie_file_path = os.path.join(os.path.dirname(__file__), "data/Trie.pkl")
 
     def get_matches(self, word):
         ret = []
@@ -46,15 +45,15 @@ class Chunk:
     def __init__(self, words, chrs):
         # self.sentence_sep = ['?', '!', ';', '？', '！', '。', '；', '……', '…', "，", ",", "."]
         self.words = words
-        self.lens = map(lambda x: len(x), words)
-        self.length = sum(self.lens)
+        self.lens_list = map(lambda x: len(x), words)
+        self.length = sum(self.lens_list)
         self.mean = float(self.length) / len(words)
-        self.var = sum(map(lambda x: (x - self.mean) ** 2, self.lens)) / len(self.words)
-        self.degree = sum([log(float(chrs[x])) for x in words if len(x) == 1 and x in chrs])
+        self.var = sum(map(lambda x: (x - self.mean) ** 2, self.lens_list)) / len(self.words)
+        self.entropy = sum([log(float(chrs[x])) for x in words if len(x) == 1 and x in chrs])
 
     def __lt__(self, other):
-        return (self.length, self.mean, -self.var, self.degree) < \
-               (other.length, other.mean, -other.var, other.degree)
+        return (self.length, self.mean, -self.var, self.entropy) < \
+               (other.length, other.mean, -other.var, other.entropy)
 
 
 class MMSeg:
@@ -75,30 +74,35 @@ class MMSeg:
                     chrs_dic.setdefault(key, int(value))
         return chrs_dic
 
-    def __get_chunks(self, s, depth=3):
+    def __get_chunks(self, sentence, depth=3):
         ret = []
 
         # 递归调用
-        def __get_chunks_it(s, num, segs):
-            if (num == 0 or not s) and segs:
+        def __get_chunks_it(sentence, num, segs):
+            if (num == 0 or not sentence) and segs:
                 ret.append(Chunk(segs, self.chrs_dic))
             else:
-                m = self.words_dic.get_matches(s)
-                if not m:
-                    __get_chunks_it(s[1:], num - 1, segs + [s[0]])
-                for w in m:
-                    __get_chunks_it(s[len(w):], num - 1, segs + [w])
+                match_word = self.words_dic.get_matches(sentence)
+                if not match_word:
+                    __get_chunks_it(sentence[1:], num - 1, segs + [sentence[0]])
+                for word in match_word:
+                    __get_chunks_it(sentence[len(word):], num - 1, segs + [word])
 
-        __get_chunks_it(s, depth, [])
+        __get_chunks_it(sentence, depth, [])
         return ret
 
-    def cws(self, s):
+    def cws(self, sentence):
+        '''
+         * cws - 中文分词
+         * @sentence:	[in]中文句子输入
+         * @return:		[out]返回的分词之后的列表
+        '''
         final_ret = []
-        while s:
-            chunks = self.__get_chunks(s)
+        while sentence:
+            chunks = self.__get_chunks(sentence)
             best = max(chunks)
             final_ret.append(best.words[0])
-            s = s[len(best.words[0]):]
+            sentence = sentence[len(best.words[0]):]
         return final_ret
 
 
