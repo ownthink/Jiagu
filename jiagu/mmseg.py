@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 # encoding: utf-8
 """
-@version   : 0.1
-@author    : Leo
-@contact   : 1162441289@qq.com
-@software  : PyCharm 
-@file      : mmseg.py
-@time      : 2019/1/5 9:55
-@intro     : mmseg分词方法，目前算法比较耗时，仍在优化中
+ * Copyright (C) 2018 OwnThink Technologies Inc.
+ *
+ * Name        : mmseg.py
+ * Author      : Leo <1162441289@qq.com>
+ * Version     : 0.01
+ * Description : mmseg分词方法，目前算法比较耗时，仍在优化中
 """
 import os
 import pickle
