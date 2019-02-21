@@ -75,30 +75,35 @@ class MMSeg:
                     chrs_dic.setdefault(key, int(value))
         return chrs_dic
 
-    def __get_chunks(self, s, depth=3):
+    def __get_chunks(self, sentence, depth=3):
         ret = []
 
         # 递归调用
-        def __get_chunks_it(s, num, segs):
-            if (num == 0 or not s) and segs:
+        def __get_chunks_it(sentence, num, segs):
+            if (num == 0 or not sentence) and segs:
                 ret.append(Chunk(segs, self.chrs_dic))
             else:
-                m = self.words_dic.get_matches(s)
-                if not m:
-                    __get_chunks_it(s[1:], num - 1, segs + [s[0]])
-                for w in m:
-                    __get_chunks_it(s[len(w):], num - 1, segs + [w])
+                match_word = self.words_dic.get_matches(sentence)
+                if not match_word:
+                    __get_chunks_it(sentence[1:], num - 1, segs + [sentence[0]])
+                for word in match_word:
+                    __get_chunks_it(sentence[len(word):], num - 1, segs + [word])
 
-        __get_chunks_it(s, depth, [])
+        __get_chunks_it(sentence, depth, [])
         return ret
 
-    def cws(self, s):
+    def cws(self, sentence):
+        '''
+         * cws - 中文分词
+         * @sentence:	[in]中文句子输入
+         * @return:		[out]返回的分词之后的列表
+        '''
         final_ret = []
-        while s:
-            chunks = self.__get_chunks(s)
+        while sentence:
+            chunks = self.__get_chunks(sentence)
             best = max(chunks)
             final_ret.append(best.words[0])
-            s = s[len(best.words[0]):]
+            sentence = sentence[len(best.words[0]):]
         return final_ret
 
 
