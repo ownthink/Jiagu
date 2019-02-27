@@ -31,8 +31,8 @@ class Trie(object):
             if c not in node:
                 break
             node = node[c]
-            if self.value in node:
-                ret.append(node[self.value])
+            if "value" in node:
+                ret.append(node["value"])
         return ret
 
     def load(self):
@@ -42,20 +42,26 @@ class Trie(object):
 
 
 class Chunk:
-    def __init__(self, words_list, chrs, word_freq):
+    def __init__(self, words_list, chrs):
         # self.sentence_sep = ['?', '!', ';', '？', '！', '。', '；', '……', '…', "，", ",", "."]
-        self.words = words_list
-        self.lens_list = map(lambda x: len(x), words_list)
-        self.length = sum(self.lens_list)
-        self.mean = float(self.length) / len(words_list)
-        self.var = sum(map(lambda x: (x - self.mean) ** 2, self.lens_list)) / len(self.words)
-        self.entropy = sum([log(float(chrs.get(x, 1))) for x in words_list])
-        # 计算词频信息熵
-        self.word_entropy = sum([log(float(word_freq.get(x, 1))) for x in words_list])
+        self.best_word = words_list[0]
+        self.words_num = len(words_list)
+        self.length = 0
+        self.entropy = 0
+        length_square = 0
+
+        for word in words_list:
+            word_length = len(word)
+            self.length += word_length
+            self.entropy += log(chrs.get(word, 1))
+            length_square += word_length * word_length
+
+        self.mean = self.length / self.words_num
+        self.var = length_square / self.words_num - (self.length / self.words_num) * (self.length / self.words_num)
 
     def __lt__(self, other):
-        return (self.length, self.mean, -self.var, self.entropy, self.word_entropy) < \
-               (other.length, other.mean, -other.var, other.entropy, other.word_entropy)
+        return (self.length, self.mean, -self.var, self.entropy) < \
+               (other.length, other.mean, -other.var, other.entropy)
 
 
 class MMSeg:
@@ -66,8 +72,6 @@ class MMSeg:
         self.words_dic = trie
         # 加载字频字典
         self.chrs_dic = self._load_freq(filename="data/chars.dic")
-        # 加载词频字典
-        self.word_freq = self._load_freq(filename="data/words.dic")
 
     def _load_freq(self, filename):
         chrs_dic = defaultdict()
@@ -79,29 +83,30 @@ class MMSeg:
         return chrs_dic
 
     def __get_start_words(self, sentence):
-        match_words = self.words_dic.get_matches(sentence)
         if sentence:
-            if not match_words:
-                return [sentence[0]]
-            else:
-                return match_words
+            match_words = self.words_dic.get_matches(sentence)
+            return match_words if match_words else [sentence[0]]
         else:
             return False
 
     def __get_chunks(self, sentence):
         # 获取chunk，每个chunk中最多三个词
-        ret = []
+        first_match_words = self.__get_start_words(sentence)
 
-        def _iter_chunk(sentence, num, tmp_seg_words):
-            match_words = self.__get_start_words(sentence)
-            if (not match_words or num == 0) and tmp_seg_words:
-                ret.append(Chunk(tmp_seg_words, self.chrs_dic, self.word_freq))
+        for word_one in first_match_words:
+            word_one_length = len(word_one)
+            second_match_words = self.__get_start_words(sentence[word_one_length:])
+            if second_match_words:
+                for word_two in second_match_words:
+                    word_two_length = len(word_two) + word_one_length
+                    third_match_words = self.__get_start_words(sentence[word_two_length:])
+                    if third_match_words:
+                        for word_three in third_match_words:
+                            yield (Chunk([word_one, word_two, word_three], self.chrs_dic))
+                    else:
+                        yield (Chunk([word_one, word_two], self.chrs_dic))
             else:
-                for word in match_words:
-                    _iter_chunk(sentence[len(word):], num - 1, tmp_seg_words + [word])
-        _iter_chunk(sentence, num=3, tmp_seg_words=[])
-
-        return ret
+                yield (Chunk([word_one], self.chrs_dic))
 
     def cws(self, sentence):
         """
@@ -110,7 +115,7 @@ class MMSeg:
         """
         while sentence:
             chunks = self.__get_chunks(sentence)
-            word = max(chunks).words[0]
+            word = max(chunks).best_word
             sentence = sentence[len(word):]
             yield word
 
