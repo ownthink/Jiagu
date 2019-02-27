@@ -1,20 +1,21 @@
 import jiagu
 
-#jiagu.init() # 可手动初始化，也可以动态初始化
+# jiagu.init() # 可手动初始化，也可以动态初始化
 
 
 text = '厦门明天会不会下雨'
 
-words = jiagu.seg(text) # 分词，可以用model选择分词模式，不填则默认，mmseg则使用mmseg算法。
+words = jiagu.seg(text)  # 分词，可以用model选择分词模式，不填则默认，mmseg则使用mmseg算法。
 print(words)
 
-pos = jiagu.pos(words) # 词性标注
+# words = jiagu.seg(text, model="mmseg")  # mmseg 分词得到generator，需要用list进行转换
+# print(list(words))
+
+pos = jiagu.pos(words)  # 词性标注
 print(pos)
 
-ner = jiagu.ner(text) # 命名实体识别
+ner = jiagu.ner(text)  # 命名实体识别
 print(ner)
-
-
 
 text = '''
 该研究主持者之一、波士顿大学地球与环境科学系博士陈池（音）表示，“尽管中国和印度国土面积仅占全球陆地的9%，但两国为这一绿化过程贡献超过三分之一。考虑到人口过多的国家一般存在对土地过度利用的问题，这个发现令人吃惊。”
@@ -24,15 +25,13 @@ NASA文章介绍，在中国为全球绿化进程做出的贡献中，有42%来�
 据观察者网过往报道，2017年我国全国共完成造林736.2万公顷、森林抚育830.2万公顷。其中，天然林资源保护工程完成造林26万公顷，退耕还林工程完成造林91.2万公顷。京津风沙源治理工程完成造林18.5万公顷。三北及长江流域等重点防护林体系工程完成造林99.1万公顷。完成国家储备林建设任务68万公顷。
 '''				
 
-keywords = jiagu.keywords(text, 5) # 关键词
+keywords = jiagu.keywords(text, 5)  # 关键词
 print(keywords)
 
-summarize = jiagu.summarize(text, 3) # 摘要
+summarize = jiagu.summarize(text, 3)  # 摘要
 print(summarize)
 
-
-
-# jiagu.findword('input.txt', 'output.txt') # 根据大规模语料，利用信息熵做新词发现。
+# iagu.findword('input.txt', 'output.txt') # 根据大规模语料，利用信息熵做新词发现。
 
 
 
