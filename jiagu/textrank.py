@@ -116,18 +116,24 @@ class Summarize(object):
                 _sents.append([word for word in sentence if word not in dele])
         return _sents
 
-    def summarize(self, text, n):
+
+    def summarize(self,text,n):
+        assert isinstance(text, str)
         text = text.replace('\n', '')
         text = text.replace('\r', '')
         text = utils.as_text(text)
-        tokens = utils.cut_sentences(text)
-        sentences, sents = utils.cut_filter_words(tokens, self.__stop_words, self.__use_stopword)
+        tokens=utils.cut_sentences(text)
+        sentences, sents=utils.cut_filter_words(tokens,self.__stop_words,self.__use_stopword)
 
-        graph = self.create_graph(sents)
-        scores = utils.weight_map_rank(graph, self.__max_iter, self.__tol)
+        graph = self.create_graph_sentence(sents)
+        scores = utils.weight_map_rank(graph,self.__max_iter,self.__tol)
         sent_selected = nlargest(n, zip(scores, count()))
         sent_index = []
-        for i in range(n):
+        if n > len(sent_selected):
+            sent_count = len(sent_selected)
+        else:
+            sent_count = n
+        for i in range(sent_count):
             sent_index.append(sent_selected[i][1])
         return [sentences[i] for i in sent_index]
 
