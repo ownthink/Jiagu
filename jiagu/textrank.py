@@ -79,7 +79,10 @@ class Keywords(object):
         sent_selected = nlargest(n, zip(scores, count()))
         sent_index = []
         for i in range(n):
-            sent_index.append(sent_selected[i][1])
+            try:
+                sent_index.append(sent_selected[i][1])
+            except:
+                pass
         return [index_word[i] for i in sent_index]
 
 
