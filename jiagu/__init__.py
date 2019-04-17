@@ -43,3 +43,5 @@ summarize = any.summarize
 # 新词发现
 findword = any.findword
 
+# 知识图谱
+knowledge = any.knowledge

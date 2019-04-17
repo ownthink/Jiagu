@@ -14,7 +14,7 @@
 * 词性标注
 * 命名实体识别
 * 情感分析     (模型训练中)
-* 知识图谱关系抽取    （模型训练中）
+* 知识图谱关系抽取
 * 关键词提取
 * 文本摘要
 * 新词发现
@@ -87,7 +87,16 @@ words = jiagu.seg('结婚的和尚未结婚的')
 print(words)
 ```
 
-3. 关键词提取
+3. 知识图谱关系抽取
+```python3
+import jiagu
+
+text = '姚明（Yao Ming），1980年9月12日出生于上海市徐汇区，祖籍江苏省苏州市吴江区震泽镇，前中国职业篮球运动员，司职中锋，现任中职联公司董事长兼总经理。'
+knowledge = jiagu.knowledge(text)
+print(knowledge)
+```
+
+4. 关键词提取
 ```python3
 import jiagu
 
@@ -103,7 +112,7 @@ keywords = jiagu.keywords(text, 5) # 关键词
 print(keywords)
 ```
 
-4. 文本摘要
+5. 文本摘要
 ```python3
 fin = open('input.txt', 'r')
 text = fin.read()
@@ -113,7 +122,7 @@ summarize = jiagu.summarize(text, 3) # 摘要
 print(summarize)
 ```
 
-5. 新词发现
+6. 新词发现
 ```python3
 import jiagu
 
