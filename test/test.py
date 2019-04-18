@@ -23,7 +23,8 @@ class TestJiagu(unittest.TestCase):
         self.assertIsNotNone(jiagu.any.pos_model)
         self.assertIsNotNone(jiagu.any.ner_model)
 
-    def test_seg(self, text='厦门明天会不会下雨'):
+    def test_seg(self):
+        text = '厦门明天会不会下雨'
         words = jiagu.seg(text)  # 默认模式
         print('默认模式分词: ', words)
         self.assertEqual(words, ['厦门', '明天', '会', '不会', '下雨'])
@@ -32,13 +33,15 @@ class TestJiagu(unittest.TestCase):
         print('mmseg模式分词:', words)
         self.assertEqual(words, ['厦门', '明天', '会', '不会', '下雨'])
 
-    def test_pos(self, text='厦门明天会不会下雨'):
+    def test_pos(self):
+        text = '厦门明天会不会下雨'
         pos = jiagu.pos(text)  # 词性标注
         print('POS tagging result:', [(c, p) for c, p in zip(text, pos)])  # Character-level labeling
         self.assertEqual(len(pos), len(text))
         self.assertEqual(pos, ['n', 'n', 'a', 'nt', 'vu', 'd', 'vu', 'v', 'n'])
 
-    def test_ner(self, text='厦门明天会不会下雨'):
+    def test_ner(self):
+        text = '厦门明天会不会下雨'
         ner = jiagu.ner(text)  # 命名实体识别
         print('NER result:', [(c, p) for c, p in zip(text, ner)])  # Character-level labeling
         self.assertEqual(len(ner), len(text))
