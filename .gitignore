@@ -2,3 +2,4 @@
 venv/
 # pycharm
 .idea/
+jiagu/__pycache__/
