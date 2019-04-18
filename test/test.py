@@ -9,9 +9,9 @@ words = jiagu.seg(text)  # 分词
 print(words)
 
 words = jiagu.seg(text, model="mmseg")  # mmseg分词
-print(words)
+print(list(words))
 
-pos = jiagu.pos(words)  # 词性标注
+pos = jiagu.pos(text)  # 词性标注
 print(pos)
 
 ner = jiagu.ner(text)  # 命名实体识别
