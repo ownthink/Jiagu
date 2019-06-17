@@ -35,37 +35,28 @@ def count_words(input_file):
 def lrg_info(word_freq, total_word, min_freq, min_mtro):
     l_dict = {}
     r_dict = {}
-    k = 0
     for word, freq in word_freq.items():
-        k += 1
         if len(word) < 3:
             continue
 
         left_word = word[:-1]
-        ml = word_freq[left_word]
-        if ml > min_freq:
-            mul_info1 = ml * total_word / (word_freq[left_word[1:]] * word_freq[left_word[0]])
-            mul_info2 = ml * total_word / (word_freq[left_word[-1]] * word_freq[left_word[:-1]])
-            mul_info = min(mul_info1, mul_info2)
-
-            if mul_info > min_mtro:
-                if left_word in l_dict:
-                    l_dict[left_word].append(freq)
-                else:
-                    l_dict[left_word] = [ml, freq]
-
         right_word = word[1:]
-        mr = word_freq[right_word]
-        if mr > min_freq:
-            mul_info1 = mr * total_word / (word_freq[right_word[1:]] * word_freq[right_word[0]])
-            mul_info2 = mr * total_word / (word_freq[right_word[-1]] * word_freq[right_word[:-1]])
-            mul_info = min(mul_info1, mul_info2)
 
-            if mul_info > min_mtro:
-                if right_word in r_dict:
-                    r_dict[right_word].append(freq)
-                else:
-                    r_dict[right_word] = [mr, freq]
+        def __update_dict(side_dict, side_word):
+            side_word_freq = word_freq[side_word]
+            if side_word_freq > min_freq:
+                mul_info1 = side_word_freq * total_word / (word_freq[side_word[1:]] * word_freq[side_word[0]])
+                mul_info2 = side_word_freq * total_word / (word_freq[side_word[-1]] * word_freq[side_word[:-1]])
+                mul_info = min(mul_info1, mul_info2)
+                if mul_info > min_mtro:
+                    if side_word in side_dict:
+                        side_dict[side_word].append(freq)
+                    else:
+                        side_dict[side_word] = [side_word_freq, freq]
+
+        __update_dict(l_dict, left_word)
+        __update_dict(r_dict, right_word)
+
     return l_dict, r_dict
 
 
@@ -75,15 +66,11 @@ def cal_entro(r_dict):
         m_list = r_dict[word]
 
         r_list = m_list[1:]
-        fm = m_list[0]
 
         entro_r = 0
-        krm = fm - sum(r_list)
-        if krm > 0:
-            entro_r -= 1 / fm * log(1 / fm, 2) * krm
-
+        sum_r_list = sum(r_list)
         for rm in r_list:
-            entro_r -= rm / fm * log(rm / fm, 2)
+            entro_r -= rm / sum_r_list * log(rm / sum_r_list, 2)
         entro_r_dict[word] = entro_r
 
     return entro_r_dict
@@ -104,21 +91,17 @@ def entro_lr_fusion(entro_r_dict, entro_l_dict):
 
 def entro_filter(entro_in_rl_dict, entro_in_l_dict, entro_in_r_dict, word_freq, min_entro):
     entro_dict = {}
-    l, r, rl = 0, 0, 0
     for word in entro_in_rl_dict:
         if entro_in_rl_dict[word][0] > min_entro and entro_in_rl_dict[word][1] > min_entro:
             entro_dict[word] = word_freq[word]
-            rl += 1
 
     for word in entro_in_l_dict:
         if entro_in_l_dict[word] > min_entro:
             entro_dict[word] = word_freq[word]
-            l += 1
 
     for word in entro_in_r_dict:
         if entro_in_r_dict[word] > min_entro:
             entro_dict[word] = word_freq[word]
-            r += 1
 
     return entro_dict
 
