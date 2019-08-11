@@ -1,14 +1,16 @@
 # coding: utf-8
 from collections import OrderedDict
 
-from .base import count_features
+from .base import count_features, tfidf_features
 from .dbscan import DBSCAN
 from .kmeans import KMeans
 
 
-def text_cluster(docs, method="k-means", k=None, max_iter=100, eps=None, min_pts=None):
+def text_cluster(docs, features_method='tfidf', method="k-means", k=None, max_iter=100, eps=None, min_pts=None):
     """文本聚类，目前支持 K-Means 和 DBSCAN 两种方法
 
+    :param features_method: str
+        提取文本特征的方法，目前支持 tfidf 和 count 两种。
     :param docs: list of str
         输入的文本列表，如 ['k-means', 'dbscan']
     :param method: str
@@ -24,7 +26,12 @@ def text_cluster(docs, method="k-means", k=None, max_iter=100, eps=None, min_pts
     :return: OrderedDict
         聚类结果
     """
-    features, names = count_features(docs)
+    if features_method == 'tfidf':
+        features, names = tfidf_features(docs)
+    elif features_method == 'count':
+        features, names = count_features(docs)
+    else:
+        raise ValueError('features_method error')
 
     # feature to doc
     f2d = {k: v.tolist() for k, v in zip(docs, features)}

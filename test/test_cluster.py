@@ -102,14 +102,14 @@ class TestCluster(unittest.TestCase):
         print("=" * 68, '\n')
         print("text_cluster_by_kmeans ... ")
         docs = load_docs()
-        clusters = text_cluster(docs, method='k-means', k=3, max_iter=100)
+        clusters = text_cluster(docs, features_method='tfidf', method='k-means', k=3, max_iter=100)
         self.assertTrue(len(clusters) == 3)
 
     def test_c_text_cluster_by_dbscan(self):
         print("=" * 68, '\n')
         print("text_cluster_by_dbscan ... ")
         docs = load_docs()
-        clusters = text_cluster(docs, method='dbscan', eps=5, min_pts=1)
+        clusters = text_cluster(docs, features_method='count', method='dbscan', eps=5, min_pts=1)
         self.assertTrue(len(clusters) == 3)
 
 

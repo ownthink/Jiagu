@@ -9,7 +9,6 @@
  * Description : 
 """
 from jiagu import analyze
-from jiagu.cluster.text import text_cluster
 
 any = analyze.Analyze()
 
