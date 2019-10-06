@@ -6,7 +6,8 @@ from .dbscan import DBSCAN
 from .kmeans import KMeans
 
 
-def text_cluster(docs, features_method='tfidf', method="k-means", k=None, max_iter=100, eps=None, min_pts=None):
+def text_cluster(docs, features_method='tfidf', method="dbscan",
+				k=3, max_iter=100, eps=0.5, min_pts=2, tokenizer=list):
     """文本聚类，目前支持 K-Means 和 DBSCAN 两种方法
 
     :param features_method: str
@@ -27,9 +28,9 @@ def text_cluster(docs, features_method='tfidf', method="k-means", k=None, max_it
         聚类结果
     """
     if features_method == 'tfidf':
-        features, names = tfidf_features(docs)
+        features, names = tfidf_features(docs, tokenizer)
     elif features_method == 'count':
-        features, names = count_features(docs)
+        features, names = count_features(docs, tokenizer)
     else:
         raise ValueError('features_method error')
 

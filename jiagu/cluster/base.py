@@ -1,5 +1,4 @@
 # -*-coding:utf-8-*-
-import jiagu
 from collections import Counter
 import numpy as np
 
@@ -10,7 +9,7 @@ def elu_distance(a, b):
     return dist
 
 
-def count_features(corpus, tokenizer=jiagu.cut):
+def count_features(corpus, tokenizer=list):
     """词频特征
 
     :param corpus: list of str
@@ -36,7 +35,7 @@ def count_features(corpus, tokenizer=jiagu.cut):
     return np.array(features), vocab
 
 
-def tfidf_features(corpus, tokenizer=jiagu.cut):
+def tfidf_features(corpus, tokenizer=list):
     """文本的 tfidf 特征
 
     :param corpus: list of str

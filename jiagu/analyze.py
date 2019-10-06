@@ -14,7 +14,9 @@ from jiagu import findword
 from jiagu import bilstm_crf
 from jiagu.textrank import Keywords
 from jiagu.textrank import Summarize
-
+from jiagu.segment.nroute import Segment
+from jiagu.sentiment.bayes import Bayes
+from jiagu.cluster.text import text_cluster as cluster 
 
 def add_curr_dir(name):
 	return os.path.join(os.path.dirname(__file__), name)
@@ -32,11 +34,19 @@ class Analyze(object):
 
 		self.keywords_model = None
 		self.summarize_model = None
+		
+		self.seg_nroute = Segment()
+		
+		self.sentiment_model = Bayes()
 
 	def init(self):
 		self.init_cws()
 		self.init_pos()
 		self.init_ner()
+		self.seg_nroute.init()
+		
+	def load_userdict(self, userdict):
+		self.seg_nroute.load_userdict(userdict)
 
 	def init_cws(self):
 		if self.seg_model is None:
@@ -99,6 +109,9 @@ class Analyze(object):
 			sent_words.append(self.__lab2word(text, seg_labels))
 		return sent_words
 
+	def seg(self, sentence):
+		return self.seg_nroute.seg(sentence, mode="default")
+		
 	def cws(self, sentence, input='text', model='default'):
 		"""中文分词
 
@@ -171,9 +184,17 @@ class Analyze(object):
 			self.summarize_model = Summarize(tol=0.0001)
 		return self.summarize_model.summarize(text, topsen)
 
-	def findword(self, input, output):
-		findword.new_word_find(input, output)
-
+	def findword(self, input_file, output_file, min_freq=10, min_mtro=80, min_entro=3):
+		findword.new_word_find(input_file, output_file, min_freq, min_mtro, min_entro)
+		
+	def sentiment(self, text):
+		words = self.seg(text)
+		ret, prob = self.sentiment_model.classify(words)
+		return ret, prob
+		
+	def text_cluster(self, docs, features_method='tfidf', method="k-means", k=3, max_iter=100, eps=0.5, min_pts=2):
+		return cluster(docs, features_method, method, k, max_iter, eps, min_pts, self.seg)
+		
 	def lab2spo(self, text, epp_labels):
 		subject_list = [] # 存放实体的列表
 		object_list = []

@@ -15,7 +15,7 @@ any = analyze.Analyze()
 init = any.init
 
 # 分词
-seg = any.cws
+seg = any.seg
 cws = any.cws
 cut = any.cws
 
@@ -29,7 +29,7 @@ ner = any.ner
 # parser
 
 # 加载用户字典
-# load_userdict
+load_userdict = any.load_userdict
 
 # 自定义分词模型
 load_model = any.load_model
@@ -45,3 +45,9 @@ findword = any.findword
 
 # 知识图谱
 knowledge = any.knowledge
+
+# 情感分析
+sentiment = any.sentiment
+
+# 文本聚类
+text_cluster = any.text_cluster

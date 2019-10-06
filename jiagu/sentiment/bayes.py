@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import sys
 import gzip
 import marshal
@@ -83,6 +84,9 @@ class Bayes(object):
 		self.total = sum(map(lambda x: self.d[x].getsum(), self.d.keys()))
 
 	def classify(self, x):
+		if self.d == {}:
+			self.load(os.path.join(os.path.dirname(__file__), 'model/sentiment.model'))
+			
 		tmp = {}
 		for k in self.d:
 			tmp[k] = log(self.d[k].getsum()) - log(self.total)

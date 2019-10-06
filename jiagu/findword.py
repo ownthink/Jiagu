@@ -106,11 +106,7 @@ def entro_filter(entro_in_rl_dict, entro_in_l_dict, entro_in_r_dict, word_freq, 
     return entro_dict
 
 
-def new_word_find(input_file, output_file):
-    min_freq = 10
-    min_mtro = 80
-    min_entro = 3
-
+def new_word_find(input_file, output_file, min_freq=10, min_mtro=80, min_entro=3):
     word_freq = count_words(input_file)
     total_word = sum(word_freq.values())
 
