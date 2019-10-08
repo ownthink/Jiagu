@@ -15,8 +15,9 @@ class Segment:
 		self.total_freq = 0
 		self.initialized = False
 
-	def init(self, vocab_path='dict/jiagu.dict'):
+	def init(self, vocab_path='dict/jiagu.dict', user_vocab='dict/user.dict'):
 		self.load_vocab(os.path.join(os.path.dirname(__file__), vocab_path))
+		self.load_vocab(os.path.join(os.path.dirname(__file__), user_vocab))
 		self.initialized = True
 	
 	def load_vocab(self, vocab_path):
@@ -179,9 +180,9 @@ if __name__=='__main__':
 	s = Segment()
 	
 	# sg.load_userdict('dict/user.dict')
-	s.load_userdict(['知识图谱'])
+	# s.load_userdict(['知识图谱'])
 
-	text = '知识图谱机器人hello\nworld￥￥'
+	text = '这一天猫小黑盒'
 	
 	words = s.seg(text)
 	print(words)
