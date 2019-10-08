@@ -182,7 +182,7 @@ if __name__=='__main__':
 	# sg.load_userdict('dict/user.dict')
 	# s.load_userdict(['知识图谱'])
 
-	text = '这一天猫小黑盒'
+	text = '张华平等'
 	
 	words = s.seg(text)
 	print(words)
