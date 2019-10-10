@@ -55,9 +55,9 @@ def cut_filter_words(cutted_sentences, stopwords, use_stopwords=False):
     for sent in cutted_sentences:
         sentences.append(sent)
         if use_stopwords:
-            sents.append([word for word in jiagu.cut(sent) if word and word not in stopwords])  # 把句子分成词语
+            sents.append([word for word in jiagu.seg(sent) if word and word not in stopwords])  # 把句子分成词语
         else:
-            sents.append([word for word in jiagu.cut(sent) if word])
+            sents.append([word for word in jiagu.seg(sent) if word])
     return sentences, sents
 
 
