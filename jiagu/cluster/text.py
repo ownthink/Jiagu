@@ -22,7 +22,7 @@ def text_cluster(docs, features_method='tfidf', method="dbscan",
         dbscan 参数，邻域距离
     :param min_pts:
         dbscan 参数，核心对象中的最少样本数量
-    :return: OrderedDict
+    :return: dict
         聚类结果
     """
     if features_method == 'tfidf':
