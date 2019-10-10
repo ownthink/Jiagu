@@ -1,6 +1,4 @@
 # coding: utf-8
-from collections import OrderedDict
-
 from .base import count_features, tfidf_features
 from .dbscan import DBSCAN
 from .kmeans import KMeans
@@ -48,7 +46,7 @@ def text_cluster(docs, features_method='tfidf', method="dbscan",
     else:
         raise ValueError("method invalid, please use 'k-means' or 'dbscan'")
 
-    clusters_out = OrderedDict()
+    clusters_out = {}
 
     for label, examples in clusters.items():
         c_docs = []
