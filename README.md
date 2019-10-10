@@ -79,7 +79,7 @@ import jiagu
 
 text = '汉服和服装、知识图谱机器人'
 
-words = jiagu.cut(text) # 默认分词
+words = jiagu.cut(text) # 深度学习分词
 print(words)
 
 words = jiagu.seg(text) # 字典分词
