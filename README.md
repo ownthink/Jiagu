@@ -26,7 +26,7 @@
 ### 安装方式
 pip安装
 ```shell
-pip install jiagu -U
+pip install -U jiagu
 ```
 源码安装
 ```shell
