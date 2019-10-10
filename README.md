@@ -123,6 +123,8 @@ print(keywords)
 
 5. 文本摘要
 ```python3
+import jiagu
+
 fin = open('input.txt', 'r')
 text = fin.read()
 fin.close()
@@ -140,6 +142,8 @@ jiagu.findword('input.txt', 'output.txt') # 根据文本，利用信息熵做新
 
 7. 情感分析
 ```python3
+import jiagu
+
 text = '很讨厌还是个懒鬼'
 sentiment = jiagu.sentiment(text)
 print(sentiment)
@@ -147,6 +151,8 @@ print(sentiment)
 
 8. 文本聚类
 ```python3
+import jiagu
+
 docs = [
         "百度深度学习中文情感分析工具Senta试用及在线测试",
         "情感分析是自然语言处理里面一个热门话题",
