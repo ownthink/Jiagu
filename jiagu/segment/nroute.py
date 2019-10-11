@@ -183,6 +183,8 @@ if __name__=='__main__':
 	# s.load_userdict(['知识图谱'])
 
 	text = '张华平等'
+	text = '美国纽约州立大学'
+	text = '海康威视'
 	
 	words = s.seg(text)
 	print(words)
