@@ -9,7 +9,6 @@
 """
 
 import random
-import numpy as np
 from collections import OrderedDict
 
 from .base import elu_distance
@@ -31,14 +30,13 @@ class DBSCAN(object):
     def train(self, X):
         """输入数据，完成 KMeans 聚类
 
-        :param X: list of tuple / np.array
+        :param X: list of tuple
             输入数据特征，[n_samples, n_features]，如：[[0.36, 0.37], [0.483, 0.312]]
         :return: OrderedDict
         """
-        if isinstance(X, np.ndarray):
-            X = [tuple(x) for x in X.tolist()]
 
         # 确定数据集中的全部核心对象集合
+        X = [tuple(x) for x in X]
         cores = self._find_cores(X)
         not_visit = set(X)
 

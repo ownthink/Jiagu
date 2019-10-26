@@ -5,7 +5,7 @@ from .kmeans import KMeans
 
 
 def text_cluster(docs, features_method='tfidf', method="dbscan",
-				k=3, max_iter=100, eps=0.5, min_pts=2, tokenizer=list):
+                 k=3, max_iter=100, eps=0.5, min_pts=2, tokenizer=list):
     """文本聚类，目前支持 K-Means 和 DBSCAN 两种方法
 
     :param features_method: str
@@ -33,7 +33,7 @@ def text_cluster(docs, features_method='tfidf', method="dbscan",
         raise ValueError('features_method error')
 
     # feature to doc
-    f2d = {k: v.tolist() for k, v in zip(docs, features)}
+    f2d = {k: v for k, v in zip(docs, features)}
 
     if method == 'k-means':
         km = KMeans(k=k, max_iter=max_iter)
@@ -57,7 +57,3 @@ def text_cluster(docs, features_method='tfidf', method="dbscan",
         clusters_out[label] = list(set(c_docs))
 
     return clusters_out
-
-
-
-

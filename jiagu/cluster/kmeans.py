@@ -8,7 +8,6 @@
  * Description : KMeans 算法实现
 """
 
-import numpy as np
 import random
 from collections import OrderedDict
 
@@ -57,11 +56,18 @@ class KMeans(object):
 
         self.clusters = clusters
 
+    def _mean(self, features):
+        res = []
+        for i in range(len(features[0])):
+            col = [x[i] for x in features]
+            res.append(sum(col) / len(col))
+        return res
+
     def _update_centroids(self):
         """根据簇类结果重新计算每个簇的中心，更新 centroids"""
         centroids = []
         for key in self.clusters.keys():
-            centroid = np.mean(self.clusters[key], axis=0)
+            centroid = self._mean(self.clusters[key])
             centroids.append(centroid)
         self.centroids = centroids
 
@@ -88,13 +94,10 @@ class KMeans(object):
     def train(self, X):
         """输入数据，完成 KMeans 聚类
 
-        :param X: list of list / np.array
+        :param X: list of list
             输入数据特征，[n_samples, n_features]，如：[[0.36, 0.37], [0.483, 0.312]]
         :return: OrderedDict
         """
-        if isinstance(X, np.ndarray):
-            X = X.tolist()
-
         # 随机选择 k 个 example 作为初始类簇均值向量
         self.centroids = random.sample(X, self.k)
 

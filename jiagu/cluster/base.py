@@ -1,12 +1,18 @@
 # -*-coding:utf-8-*-
 from collections import Counter
-import numpy as np
+import math
 
 
 def elu_distance(a, b):
-    """计算两点之间的欧氏距离并返回"""
-    dist = np.sqrt(np.sum(np.square(np.array(a) - np.array(b))))
-    return dist
+    """计算两点之间的欧氏距离并返回
+
+    :param a: list of float
+    :param b: list of float
+    :return: float
+    """
+
+    x = sum([pow((a_-b_), 2) for a_, b_ in zip(a, b)])
+    return math.sqrt(x)
 
 
 def count_features(corpus, tokenizer=list):
@@ -15,7 +21,7 @@ def count_features(corpus, tokenizer=list):
     :param corpus: list of str
     :param tokenizer: function for tokenize, default is `jiagu.cut`
     :return:
-        features: np.array
+        features: list of list of float
         names: list of str
 
     example:
@@ -32,7 +38,7 @@ def count_features(corpus, tokenizer=list):
         feature = [counter.get(x, 0) for x in vocab]
         features.append(feature)
 
-    return np.array(features), vocab
+    return features, vocab
 
 
 def tfidf_features(corpus, tokenizer=list):
@@ -41,7 +47,7 @@ def tfidf_features(corpus, tokenizer=list):
     :param corpus: list of str
     :param tokenizer: function for tokenize, default is `jiagu.cut`
     :return:
-        features: np.array
+        features: list of list of float
         names: list of str
 
     example:
@@ -58,9 +64,9 @@ def tfidf_features(corpus, tokenizer=list):
     for word in vocab:
         num = sum([1 if (word in s) else 0 for s in corpus])
         if num == total_doc:
-            idf = np.log(total_doc / num)
+            idf = math.log(total_doc / num)
         else:
-            idf = np.log(total_doc / (num + 1))
+            idf = math.log(total_doc / (num + 1))
         idf_dict[word] = idf
 
     features = []
@@ -69,6 +75,6 @@ def tfidf_features(corpus, tokenizer=list):
         feature = [counter.get(x, 0) / len(sent) * idf_dict.get(x, 0) for x in vocab]
         features.append(feature)
 
-    return np.array(features), vocab
+    return features, vocab
 
 
