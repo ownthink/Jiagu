@@ -17,7 +17,7 @@ class Segment:
 
 	def init(self, vocab_path='dict/jiagu.dict', user_vocab='dict/user.dict'):
 		self.load_vocab(os.path.join(os.path.dirname(__file__), vocab_path))
-		self.load_vocab(os.path.join(os.path.dirname(__file__), user_vocab))
+		# self.load_vocab(os.path.join(os.path.dirname(__file__), user_vocab))
 		self.initialized = True
 	
 	def load_vocab(self, vocab_path):
@@ -182,9 +182,7 @@ if __name__=='__main__':
 	# sg.load_userdict('dict/user.dict')
 	# s.load_userdict(['知识图谱'])
 
-	text = '张华平等'
-	text = '美国纽约州立大学'
-	text = '海康威视'
+	text = '天猫啊'
 	
 	words = s.seg(text)
 	print(words)
