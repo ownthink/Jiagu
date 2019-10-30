@@ -23,7 +23,7 @@
 
 ---
 
-### 安装方式
+## 安装方式
 pip安装
 ```shell
 pip install -U jiagu
@@ -36,7 +36,7 @@ python3 setup.py install
 ```
 注意：深度学习模型使用1.6训练的，不支持tensorflow 2.0
 
-### 使用方式
+## 使用方式
 1. 快速上手：分词、词性标注、命名实体识别
 ```python3
 import jiagu
@@ -167,7 +167,7 @@ cluster = jiagu.text_cluster(docs)
 print(cluster)
 ```
 
-### 评价标准
+## 评价标准
 1. msr测试结果（旧版本）
 
 ![msr](https://github.com/ownthink/evaluation/blob/master/images/2.png)
@@ -220,7 +220,7 @@ B-LOC、I-LOC   地名
 B-ORG、I-ORG   机构名
 ```
 
-### 加入我们
+## 加入我们
 思知人工智能群QQ群：90780053，微信群联系作者微信：MrYener，作者邮箱联系方式：help@ownthink.com
 
 <p>捐赠作者(您的鼓励是作者开源最大的动力！！！)：<a href="https://github.com/ownthink/Jiagu/wiki/donation"target="_blank">捐赠致谢</a> </p>
@@ -228,7 +228,7 @@ B-ORG、I-ORG   机构名
 ![收款码](https://github.com/ownthink/KnowledgeGraph/raw/master/img/%E6%94%B6%E6%AC%BE%E7%A0%81.jpg)
 
 
-### 贡献者：
+## 贡献者：
 1. [Yener](https://github.com/ownthink)
 2. [zengbin93](https://github.com/zengbin93)
 3. [dirtdust](https://github.com/dirtdust)
