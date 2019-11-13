@@ -28,6 +28,8 @@ pip安装
 ```shell
 pip install -U jiagu
 ```
+如果比较慢，可以使用清华的pip源：-i https://pypi.tuna.tsinghua.edu.cn/simple
+
 源码安装
 ```shell
 git clone https://github.com/ownthink/Jiagu
