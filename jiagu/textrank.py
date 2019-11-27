@@ -78,11 +78,8 @@ class Keywords(object):
                                        tol=self.__tol)
         sent_selected = nlargest(n, zip(scores, count()))
         sent_index = []
-        for i in range(n):
-            try:
-                sent_index.append(sent_selected[i][1])
-            except:
-                pass
+        for i in range(min(len(sent_selected), n)):
+            sent_index.append(sent_selected[i][1])
         return [index_word[i] for i in sent_index]
 
 
