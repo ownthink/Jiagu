@@ -36,7 +36,6 @@ git clone https://github.com/ownthink/Jiagu
 cd Jiagu
 python3 setup.py install
 ```
-注意：深度学习模型使用1.6训练的，不支持tensorflow 2.0
 
 ## 使用方式
 1. 快速上手：分词、词性标注、命名实体识别
