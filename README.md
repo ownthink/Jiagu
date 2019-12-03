@@ -58,24 +58,6 @@ print(ner)
 ```
 
 2. 中文分词
-
-自定义分词模型（将单独提供msr、pku、cnc等分词标准）
-```python3
-import jiagu
-
-# 独立标准模型路径
-# msr：test/extra_data/model/msr.model
-# pku：test/extra_data/model/pku.model
-# cnc：test/extra_data/model/cnc.model
-
-jiagu.load_model('test/extra_data/model/cnc.model') # 使用国家语委分词标准
-
-words = jiagu.cut('结婚的和尚未结婚的')
-
-print(words)
-```
-
-分词各种模式使用方式
 ```python3
 import jiagu
 
