@@ -1,16 +1,7 @@
 # -*- encoding:utf-8 -*-
-"""
- * Copyright (C) 2017 OwnThink.
- *
- * Name        : utils.py - 解析
- * Author      : zengbin93 <zeng_bin8888@163.com>
- * Version     : 0.01
- * Description : 常用工具函数
-"""
 import os
 import jiagu
 import math
-import numpy as np
 
 
 def default_stopwords_file():
@@ -136,22 +127,6 @@ def different(scores, old_scores, tol=0.0001):
             flag = True
             break
     return flag
-
-
-def cosine_similarity(vec1, vec2):
-    """计算两个向量的余弦相似度
-
-	:param vec1: list or np.array
-	:param vec2: list or np.array
-	:return: float
-	"""
-    tx = np.array(vec1)
-    ty = np.array(vec2)
-    cos1 = np.sum(tx * ty)
-    cos21 = np.sqrt(sum(tx ** 2))
-    cos22 = np.sqrt(sum(ty ** 2))
-    cosine_value = cos1 / float(cos21 * cos22)
-    return cosine_value
 
 
 def combine(word_list, window=2):

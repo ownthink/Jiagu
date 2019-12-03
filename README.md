@@ -53,7 +53,7 @@ print(words)
 pos = jiagu.pos(words) # 词性标注
 print(pos)
 
-ner = jiagu.ner(text) # 命名实体识别
+ner = jiagu.ner(words) # 命名实体识别
 print(ner)
 ```
 
@@ -61,7 +61,7 @@ print(ner)
 ```python3
 import jiagu
 
-text = '汉服和服装、知识图谱机器人'
+text = '汉服和服装、维基图谱'
 
 words = jiagu.cut(text) # 深度学习分词
 print(words)
@@ -70,7 +70,7 @@ words = jiagu.seg(text) # 字典分词
 print(words)
 
 # jiagu.load_userdict('dict/user.dict') # 加载自定义字典，支持字典路径、字典列表形式。
-jiagu.load_userdict(['知识图谱'])
+jiagu.load_userdict(['汉服和服装'])
 
 words = jiagu.seg(text) # 自定义分词，字典分词模式有效
 print(words)

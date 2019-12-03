@@ -4,9 +4,7 @@ import gzip
 import pickle
 import random
 from collections import defaultdict
-'''
-http://honnibal.wordpress.com/2013/09/11/a-good-part-of-speechpos-tagger-in-about-200-lines-of-python/
-'''
+
 class AveragedPerceptron(object):
     def __init__(self):
         # Each feature gets its own weight vector, so weights is a dict-of-dicts

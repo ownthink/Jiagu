@@ -1,15 +1,4 @@
 # -*- encoding:utf-8 -*-
-"""
- * Copyright (C) 2017 OwnThink.
- *
- * Name        : findword.py - 新词发现
- * Author      : Yener <yener@ownthink.com>
- * Version     : 0.01
- * Description : 新词发现算法实现
- special thanks to 
- http://www.matrix67.com/blog/archives/5044
- https://github.com/zoulala/New_words_find
-"""
 import re
 from math import log
 from collections import Counter

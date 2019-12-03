@@ -1,13 +1,4 @@
 # -*- encoding:utf-8 -*-
-"""
- * Copyright (C) 2017 OwnThink.
- *
- * Name        : textrank.py - 解析
- * Author      : zengbin93 <zeng_bin8888@163.com>
- * Version     : 0.01
- * Description : TextRank算法实现
- special thanks to https://github.com/ArtistScript/FastTextRank
-"""
 import sys
 import numpy as np
 from jiagu import utils

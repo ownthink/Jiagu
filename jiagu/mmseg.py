@@ -1,13 +1,5 @@
 #!/usr/bin/env python
 # encoding: utf-8
-"""
- * Copyright (C) 2018 OwnThink.
- *
- * Name        : mmseg.py
- * Author      : Leo <1162441289@qq.com>
- * Version     : 0.01
- * Description : mmseg分词方法，目前算法比较耗时，仍在优化中
-"""
 import os
 import pickle
 from math import log
