@@ -1,20 +1,13 @@
 # -*- coding:utf-8 -*-
-"""
-Averaged perceptron classifier. Implementation geared for simplicity rather than
-efficiency.
-"""
-from collections import defaultdict
+import os
+import gzip
 import pickle
 import random
-
-
+from collections import defaultdict
+'''
+http://honnibal.wordpress.com/2013/09/11/a-good-part-of-speechpos-tagger-in-about-200-lines-of-python/
+'''
 class AveragedPerceptron(object):
-
-    '''An averaged perceptron, as implemented by Matthew Honnibal.
-    See more implementation details here:
-        http://honnibal.wordpress.com/2013/09/11/a-good-part-of-speechpos-tagger-in-about-200-lines-of-python/
-    '''
-
     def __init__(self):
         # Each feature gets its own weight vector, so weights is a dict-of-dicts
         self.weights = {}
@@ -72,27 +65,164 @@ class AveragedPerceptron(object):
             self.weights[feat] = new_feat_weights
         return None
 
-    def save(self, path):
-        '''Save the pickled model weights.'''
-        return pickle.dump(dict(self.weights), open(path, 'w'))
+class Perceptron:
+	def __init__(self, loc=None):
+		self.START = ['-START-', '-START2-']
+		self.END = ['-END-', '-END2-']
+		self.model = AveragedPerceptron()
+		
+		if loc != None:
+			self.load(loc)
 
-    def load(self, path):
-        '''Load the pickled model weights.'''
-        self.weights = pickle.load(open(path))
-        return None
+	def predict(self, words):
+		prev, prev2 = self.START
+		labels = []
+		context = self.START + words + self.END
+		for i, word in enumerate(words):
+			features = self._get_features(i, word, context, prev, prev2)
+			tag = self.model.predict(features)
+			labels.append(tag)
+			prev2 = prev
+			prev = tag
+		return labels
+		
+	def train(self, sentences, save_loc=None, nr_iter=5, shuf=False):
+		self._make_tagdict(sentences)
+		for iter_ in range(nr_iter):
+			c = 0
+			n = 0
+			for words, tags in sentences:
+				prev, prev2 = self.START
+				context = self.START + words + self.END
+				for i, word in enumerate(words):
+					feats = self._get_features(i, word, context, prev, prev2)
+					guess = self.model.predict(feats)
+					self.model.update(tags[i], guess, feats)
 
+					prev2 = prev
+					prev = guess
+					c += guess == tags[i]
+					n += 1
+			if shuf == True:
+				random.shuffle(sentences)
+				
+			print("Iter {0}: {1}/{2}={3}".format(iter_, c, n, (float(c) / n) * 100))
+			self.save(save_loc)
+			
+		self.model.average_weights()
+		self.save(save_loc)
+		
+	def save(self, loc='model/ap.model', zip=True):
+		if zip == False:
+			pickle.dump((self.model.weights, self.model.classes), open(loc, 'wb'))
+		else:
+			pickle.dump((self.model.weights, self.model.classes), gzip.open(loc, 'wb'))
+			
+	def load(self, loc='model/ap.model', zip=True):
+		if zip == False:
+			self.model.weights, self.model.classes = pickle.load(open(loc, 'rb'))
+		else:
+			self.model.weights, self.model.classes = pickle.load(gzip.open(loc,'rb'))
+			
+	def _get_features(self, i, word, context, prev, prev2):
+		'''Map tokens into a feature representation, implemented as a
+		{hashable: float} dict. If the features change, a new model must be
+		trained.
+		'''
+		def add(name, *args):
+			features[' '.join((name,) + tuple(args))] += 1
 
-def train(nr_iter, examples):
-    '''Return an averaged perceptron model trained on ``examples`` for
-    ``nr_iter`` iterations.
-    '''
-    model = AveragedPerceptron()
-    for i in range(nr_iter):
-        random.shuffle(examples)
-        for features, class_ in examples:
-            scores = model.predict(features)
-            guess, score = max(scores.items(), key=lambda i: i[1])
-            if guess != class_:
-                model.update(class_, guess, features)
-    model.average_weights()
-    return model
+		i += len(self.START)
+		features = defaultdict(int)
+		# It's useful to have a constant feature, which acts sort of like a prior
+		add('bias')
+		add('i suffix', word[-3:])
+		add('i pref1', word[0])
+		add('i-1 tag', prev)
+		add('i-2 tag', prev2)
+		add('i tag+i-2 tag', prev, prev2)
+		add('i word', context[i])
+		add('i-1 tag+i word', prev, context[i])
+		add('i-1 word', context[i - 1])
+		add('i-1 suffix', context[i - 1][-3:])
+		add('i-2 word', context[i - 2])
+		add('i+1 word', context[i + 1])
+		add('i+1 suffix', context[i + 1][-3:])
+		add('i+2 word', context[i + 2])
+		return features
+
+	def _make_tagdict(self, sentences):
+		'''Make a tag dictionary for single-tag words.'''
+		for words, tags in sentences:
+			for word, tag in zip(words, tags):
+				self.model.classes.add(tag)
+				
+def train(filepath='data/train.txt', model='model/ap.model', nr_iter=1):
+	tagger = Perceptron()
+	print('Reading corpus...')
+	training_data = []
+	sentence = ([], [])
+	fin = open(filepath, 'r', encoding='utf8')
+	for index, line in enumerate(fin):
+		line = line.strip()
+		if line == '':
+			training_data.append(sentence)
+			sentence = ([], [])
+		else:
+			params = line.split()
+			sentence[0].append(params[0])
+			sentence[1].append(params[1])
+	fin.close()
+	print('training corpus size : %d', len(training_data))
+	print('Start training...')
+	tagger.train(training_data, save_loc=model, nr_iter=nr_iter)
+
+def eval(filepath='data/test.txt', model='model/ap.model'):
+	tagger = Perceptron(model)
+	
+	print('Start testing...')
+	right = 0.0
+	total = 0.0
+	sentence = ([], [])
+	fin = open(filepath, 'r', encoding='utf8')
+	for index, line in enumerate(fin):
+		line = line.strip()
+		if line == '':
+			words = sentence[0]
+			tags = sentence[1]
+			outputs = tagger.predict(words)
+			assert len(tags) == len(outputs)
+			total += len(tags)
+			for o, t in zip(outputs, tags):
+				if o == t: right += 1
+			sentence = ([], [])
+		else:
+			params = line.split()
+			if len(params) != 2: continue
+			sentence[0].append(params[0])
+			sentence[1].append(params[1])
+	fin.close()
+	print("Precision : %f", right / total)
+	
+def predict(model='model/ap.model'):
+	tagger = Perceptron(model)
+
+	while True:
+		text = input('>')
+		words = list(text)
+		labels = tagger.predict(words)
+		
+		for word, label in zip(words, labels):
+			print(word, label)
+			
+
+if __name__ == '__main__':
+	train()
+	eval()
+	# predict()
+	
+	
+
+	
+	
+	
