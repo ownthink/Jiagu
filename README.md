@@ -62,10 +62,7 @@ import jiagu
 
 text = '汉服和服装、维基图谱'
 
-words = jiagu.cut(text) # 深度学习分词
-print(words)
-
-words = jiagu.seg(text) # 字典分词
+words = jiagu.seg(text)
 print(words)
 
 # jiagu.load_userdict('dict/user.dict') # 加载自定义字典，支持字典路径、字典列表形式。
