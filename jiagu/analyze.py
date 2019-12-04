@@ -80,7 +80,9 @@ class Analyze(object):
 				words.append(tmp_word)
 				tmp_word = ""
 			else:
-				tmp_word = ""
+				if tmp_word != '':
+					words.append(tmp_word)
+					tmp_word = ""
 				words.append(w)
 		if tmp_word:
 			words.append(tmp_word)
@@ -89,7 +91,9 @@ class Analyze(object):
 	def cws_text(self, sentence):
 		if sentence == '':
 			return ['']
-		labels = self.seg_model.predict(list(sentence))
+			
+		sentence = list(sentence)
+		labels = self.seg_model.predict(sentence)
 		return self.__lab2word(sentence, labels)
 
 	def seg(self, sentence):
