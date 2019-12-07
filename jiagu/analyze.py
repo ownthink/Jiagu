@@ -104,19 +104,13 @@ class Analyze(object):
 
 		:param sentence: str or list
 			文本或者文本列表，根据input的模式来定
-		:param input: str
-			句子输入的格式，text则为默认的文本，batch则为批量的文本列表
 		:param model: str
-			分词所使用的模式，default为默认模式，mmseg为mmseg分词方式
+			分词所使用的模式，default为默认模式包含新词发现
 		:return:
 		"""
 		if model == 'default':
 			self.init_cws()
 			words = self.cws_text(sentence)
-			return words
-		elif model == 'mmseg':
-			self.init_mmseg()
-			words = self.seg_mmseg.cws(sentence)
 			return words
 		else:
 			pass
@@ -158,7 +152,7 @@ class Analyze(object):
 		
 	def text_cluster(self, docs, features_method='tfidf', method="k-means", k=3, max_iter=100, eps=0.5, min_pts=2):
 		return cluster(docs, features_method, method, k, max_iter, eps, min_pts, self.seg)
-		
+	
 	def lab2spo(self, words, epp_labels):
 		subject_list = [] # 存放实体的列表
 		object_list = []
