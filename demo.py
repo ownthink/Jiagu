@@ -3,7 +3,7 @@ import jiagu
 # jiagu.init() # 可手动初始化，也可以动态初始化
 
 
-text = '思知机器人挺好用的'
+text = '苏州的天气不错'
 
 words = jiagu.seg(text)  # 分词
 print(words)
