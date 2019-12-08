@@ -12,6 +12,6 @@ setup(name='jiagu',
       packages=['jiagu'],
       package_dir={'jiagu': 'jiagu'},
       package_data={'jiagu': ['*.*', 'cluster/*', 'data/*', 'model/*',
-					'normal/*', 'segment/*', 'segment/dict/*',
-					'sentiment/*', 'sentiment/model/*', 'topic/*']}
+		'normal/*', 'segment/*', 'segment/dict/*','segment/model/*',
+		'sentiment/*', 'sentiment/model/*', 'topic/*']}
       )
