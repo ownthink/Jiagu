@@ -243,29 +243,29 @@ class Segment:
 				continue
 			if re_han.match(block):
 				words1 = list(cut_block(block))
-				print(words1)
+				# print(words1)
 
 				words2 = self.model_cut(block)
-				print(words2)
+				# print(words2)
 				
 
-				# new_word = [] # 有冲突的不加，长度大于4的不加，加完记得删除
-				# length = len(words1)
-				# for n in range(3):
-					# can_limit = length - n + 1
-					# for i in range(0, can_limit):
-						# ngram = ''.join(words1[i:i + n])
-						# word_len = len(ngram)
-						# if word_len > 4 or word_len==1:
-							# continue
-						# if ngram in words2 and ngram not in words1:
+				new_word = [] # 有冲突的不加，长度大于4的不加，加完记得删除
+				length = len(words1)
+				for n in range(3):
+					can_limit = length - n + 1
+					for i in range(0, can_limit):
+						ngram = ''.join(words1[i:i + n])
+						word_len = len(ngram)
+						if word_len > 4 or word_len==1:
+							continue
+						if ngram in words2 and ngram not in words1:
 							# print(ngram)
-							# new_word.append([ngram, 1])
+							new_word.append([ngram, 1])
 				
-				new_word = []
-				for word in words2:
-					if word not in words1 and len(word)>1 and len(word) < 4 :#and not re_eng.match(word):
-						new_word.append([word, 1])
+				# new_word = []
+				# for word in words2:
+				# 	if word not in words1 and len(word)>1 and len(word) < 4 :#and not re_eng.match(word):
+				#		new_word.append([word, 1])
 				
 				
 				self.load_userdict(new_word)

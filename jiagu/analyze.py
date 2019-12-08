@@ -35,17 +35,16 @@ class Analyze(object):
 		self.init_cws()
 		self.init_pos()
 		self.init_ner()
-		self.seg_nroute.init()
+		
 		
 	def load_userdict(self, userdict):
 		self.seg_nroute.load_userdict(userdict)
 
 	def init_cws(self):
-		if self.seg_model is None:
-			self.seg_model = perceptron.Perceptron(add_curr_dir('model/cws.model'))
+		self.seg_nroute.init()
 
 	def load_model(self, model_path):
-		self.seg_model = perceptron.Perceptron(model_path)
+		pass
 
 	def init_pos(self):
 		if self.pos_model is None:
@@ -63,58 +62,11 @@ class Analyze(object):
 		if self.kg_model is None:
 			self.kg_model = perceptron.Perceptron(add_curr_dir('model/kg.model'))
 
-	@staticmethod
-	def __lab2word(sentence, labels):
-		sen_len = len(sentence)
-		tmp_word = ""
-		words = []
-		for i in range(sen_len):
-			label = labels[i]
-			w = sentence[i]
-			if label == "B":
-				tmp_word += w
-			elif label == "M":
-				tmp_word += w
-			elif label == "E":
-				tmp_word += w
-				words.append(tmp_word)
-				tmp_word = ""
-			else:
-				if tmp_word != '':
-					words.append(tmp_word)
-					tmp_word = ""
-				words.append(w)
-		if tmp_word:
-			words.append(tmp_word)
-		return words
-
-	def cws_text(self, sentence):
-		if sentence == '':
-			return ['']
-			
-		sentence = list(sentence)
-		labels = self.seg_model.predict(sentence)
-		return self.__lab2word(sentence, labels)
-
 	def seg(self, sentence):
 		return self.seg_nroute.seg(sentence, mode="default")
 		
-	def cws(self, sentence, model='default'):
-		"""中文分词
-
-		:param sentence: str or list
-			文本或者文本列表，根据input的模式来定
-		:param model: str
-			分词所使用的模式，default为默认模式包含新词发现
-		:return:
-		"""
-		if model == 'default':
-			self.init_cws()
-			words = self.cws_text(sentence)
-			return words
-		else:
-			pass
-		return []
+	def cws(self, sentence, mode='probe'):
+		return self.seg_nroute.seg(sentence, mode)
 
 	def pos(self, words):  # 传入的是词语
 		self.init_pos()

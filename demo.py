@@ -3,9 +3,12 @@ import jiagu
 # jiagu.init() # 可手动初始化，也可以动态初始化
 
 
-text = '在苏州冻成狗'
+text = '思知机器人挺好用的'
 
 words = jiagu.seg(text)  # 分词
+print(words)
+
+words = jiagu.cut(text)  # 分词
 print(words)
 
 pos = jiagu.pos(words)  # 词性标注
@@ -47,7 +50,7 @@ print(summarize)
 
 
 # 知识图谱关系抽取
-text = '姚明（Yao Ming），1980年9月12日出生于上海市徐汇区，祖籍江苏省苏州市吴江区震泽镇，前中国职业篮球运动员，司职中锋，现任中职联公司董事长兼总经理。'
+text = '姚明1980年9月12日出生于上海市徐汇区，祖籍江苏省苏州市吴江区震泽镇，前中国职业篮球运动员，司职中锋，现任中职联公司董事长兼总经理。'
 knowledge = jiagu.knowledge(text)
 print(knowledge)
 
