@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(name='jiagu',
-      version='0.2.1',
+      version='0.2.2',
       description='Jiagu Natural Language Processing',
       author='Yener(Zheng Wenyu)',
       author_email='help@ownthink.com',
