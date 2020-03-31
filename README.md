@@ -74,7 +74,7 @@ print(words)
 
 3. 知识图谱关系抽取
 
-仅用于测试用，可以pip3 install jiagu==0.1.8，效果更佳的后期将会开放api。
+仅用于测试用，可以pip3 install jiagu==0.1.8，只能使用百科的描述进行测试。效果更佳的后期将会开放api。
 ```python3
 import jiagu
 
