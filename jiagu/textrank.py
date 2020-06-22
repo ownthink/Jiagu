@@ -1,6 +1,5 @@
 # -*- encoding:utf-8 -*-
 import sys
-import numpy as np
 from jiagu import utils
 from heapq import nlargest
 from collections import defaultdict
@@ -26,7 +25,6 @@ class Keywords(object):
             with open(self.__stop_words_file, 'r', encoding='utf-8') as f:
                 for word in f:
                     self.__stop_words.add(word.strip())
-        np.seterr(all='warn')
 
     @staticmethod
     def build_vocab(sents):
@@ -94,7 +92,6 @@ class Summarize(object):
         if use_stopword:
             for word in open(self.__stop_words_file, 'r', encoding='utf-8'):
                 self.__stop_words.add(word.strip())
-        np.seterr(all='warn')
 
     def filter_dictword(self, sents):
         _sents = []

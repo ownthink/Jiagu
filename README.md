@@ -28,7 +28,7 @@ pip安装
 ```shell
 pip install -U jiagu
 ```
-如果比较慢，可以使用清华的pip源：`-i https://pypi.tuna.tsinghua.edu.cn/simple`
+如果比较慢，可以使用清华的pip源：`pip install -U jiagu -i https://pypi.tuna.tsinghua.edu.cn/simple`
 
 源码安装
 ```shell
@@ -73,14 +73,15 @@ print(words)
 ```
 
 3. 知识图谱关系抽取
+
+仅用于测试用，可以pip3 install jiagu==0.1.8，只能使用百科的描述进行测试。效果更佳的后期将会开放api。
 ```python3
 import jiagu
 
 # 吻别是由张学友演唱的一首歌曲。
-# 苏州大学（Soochow University），简称“苏大”，坐落于历史文化名城苏州。
 # 《盗墓笔记》是2014年欢瑞世纪影视传媒股份有限公司出品的一部网络季播剧，改编自南派三叔所著的同名小说，由郑保瑞和罗永昌联合导演，李易峰、杨洋、唐嫣、刘天佐、张智尧、魏巍等主演。
 
-text = '姚明（Yao Ming），1980年9月12日出生于上海市徐汇区，祖籍江苏省苏州市吴江区震泽镇，前中国职业篮球运动员，司职中锋，现任中职联公司董事长兼总经理。'
+text = '姚明1980年9月12日出生于上海市徐汇区，祖籍江苏省苏州市吴江区震泽镇，前中国职业篮球运动员，司职中锋，现任中职联公司董事长兼总经理。'
 knowledge = jiagu.knowledge(text)
 print(knowledge)
 ```
@@ -213,5 +214,6 @@ B-ORG、I-ORG   机构名
 2. [zengbin93](https://github.com/zengbin93)
 3. [dirtdust](https://github.com/dirtdust)
 4. [frankchen7788](https://github.com/frankchen7788)
+
 
 
