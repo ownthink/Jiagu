@@ -115,7 +115,7 @@ class Summarize(object):
         scores = utils.weight_map_rank(graph, self.__max_iter, self.__tol)
         sent_selected = nlargest(n, zip(scores, count()))
         sent_index = []
-        for i in range(n):
+        for i in range(min(n, len(sent_selected))):
             sent_index.append(sent_selected[i][1])
         return [sentences[i] for i in sent_index]
 
