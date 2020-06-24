@@ -90,8 +90,9 @@ class Summarize(object):
         if stop_words_file:
             self.__stop_words_file = stop_words_file
         if use_stopword:
-            for word in open(self.__stop_words_file, 'r', encoding='utf-8'):
-                self.__stop_words.add(word.strip())
+            with open(self.__stop_words_file, 'r', encoding='utf-8') as f:
+                for word in f:
+                    self.__stop_words.add(word.strip())
 
     def filter_dictword(self, sents):
         _sents = []

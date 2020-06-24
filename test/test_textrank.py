@@ -121,7 +121,29 @@ class TestTextRank(unittest.TestCase):
         print(summarize)
         self.assertTrue(len(summarize) == 3)
 
+    def test_cut_sentences(self):
+        text = '''江西省上饶市信州区人民法院 刑事判决书 （2016）赣1102刑初274号 公诉机关
+                上饶市信州区人民检察院。 被告人曾榴仙，女，1954年11月22日出生于江西省上饶市信州区，
+                汉族，文盲，无业，家住上饶市信州区，因涉嫌过失致人死亡罪，2016年4月27日被上饶市公
+                安局信州区分局刑事拘留，2016年6月1日被执行逮捕。辩护人毛巧云，江西盛义律师事务所
+                律师。 上饶市信州区人民检察院以饶信检公诉刑诉［2016］260号起诉书指控被告人曾榴仙犯
+                过失致人死亡罪，于2016年8月22日向本院提起公诉。'''
+        text = re.sub('\\n| ', '', text)
+        sentences = list(utils.cut_sentences(text))
+        self.assertEqual(len(sentences), 4)
+
+    def test_short_text_summarize(self):
+        text = '''江西省上饶市信州区人民法院 刑事判决书 （2016）赣1102刑初274号 公诉机关
+        上饶市信州区人民检察院。 被告人曾榴仙，女，1954年11月22日出生于江西省上饶市信州区，
+        汉族，文盲，无业，家住上饶市信州区，因涉嫌过失致人死亡罪，2016年4月27日被上饶市公
+        安局信州区分局刑事拘留，2016年6月1日被执行逮捕。辩护人毛巧云，江西盛义律师事务所
+        律师。 上饶市信州区人民检察院以饶信检公诉刑诉［2016］260号起诉书指控被告人曾榴仙犯
+        过失致人死亡罪，于2016年8月22日向本院提起公诉。'''
+        text = re.sub('\\n| ', '', text)
+        summarize = jiagu.summarize(text, 5)  # 设定摘要句子数大于文本句子数
+        print(summarize)
+        print(len(summarize))
+
 
 if __name__ == '__main__':
     unittest.main()
-
