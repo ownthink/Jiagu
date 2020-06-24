@@ -37,7 +37,8 @@ def cut_sentences(sentence):
         if ch in sentence_delimiters:
             yield ''.join(tmp)
             tmp = []
-    yield ''.join(tmp)
+    if len(tmp) > 0:    # 如以定界符结尾的文本的文本信息会在循环中返回，无需再次传递
+        yield ''.join(tmp)
 
 
 def cut_filter_words(cutted_sentences, stopwords, use_stopwords=False):
