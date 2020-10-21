@@ -203,6 +203,7 @@ B-ORG、I-ORG   机构名
 ```
 
 ## 加入我们
+```text
 人工智能qq群1：90780053(满)
 人工智能qq群2：956936481（满）
 人工智能qq群3：1160292084
@@ -210,7 +211,7 @@ B-ORG、I-ORG   机构名
 知识图谱qq群2：740104333
 
 微信群可联系作者微信：MrYener，作者邮箱联系方式：help@ownthink.com
-
+```
 <p>捐赠作者(您的鼓励是作者开源最大的动力！！！)：<a href="https://github.com/ownthink/Jiagu/wiki/donation"target="_blank">捐赠致谢</a> </p>
 
 ![收款码](https://github.com/ownthink/KnowledgeGraph/raw/master/img/%E6%94%B6%E6%AC%BE%E7%A0%81.jpg)
